@@ -219,10 +219,18 @@
             border: 1px solid #4a5568;
         }
 
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+
         .code-block .keyword { color: #f687b3; }
         .code-block .variable { color: #68d391; }
         .code-block .string { color: #fbd38d; }
-        .code-block .comment { color: #718096; }
+        .code-block .comment { color: #718096; font-style: italic; }
         .code-block .number { color: #90cdf4; }
 
         /* Flowchart symbols */
@@ -948,7 +956,7 @@
                 <div class="interactive-demo">
                     <div class="demo-title">📌 Example: Calculate Sum and Average</div>
                     <div class="code-block">
-<span class="keyword">Procedure</span> Calculate Sum:
+<pre><span class="keyword">Procedure</span> Calculate Sum:
 <span class="keyword">Begin</span>
     <span class="number">1.</span> <span class="keyword">Declare</span> <span class="variable">Num1, Num2, Num3, Sum</span> <span class="keyword">as</span> integer and initialise to zero
     <span class="number">2.</span> <span class="keyword">Declare</span> <span class="variable">Avg</span> <span class="keyword">as</span> float and initialise to 0
@@ -963,25 +971,448 @@
     <span class="number">10.</span> Calculate Average
         <span class="number">10.1.</span> Divide the value in variable sum by three
     <span class="number">11.</span> Display the contents of variables sum and average to the user
-<span class="keyword">End</span>
+<span class="keyword">End</span></pre>
                     </div>
                 </div>
 
                 <div class="interactive-demo">
                     <div class="demo-title">💻 Pseudocode Example: Product Discount Calculator</div>
                     <div class="code-block">
-<span class="keyword">START</span>
+<pre><span class="keyword">START</span>
     <span class="keyword">Declare</span> <span class="variable">price, newPrice, discountPrice</span> <span class="keyword">as</span> float
     <span class="keyword">Declare</span> <span class="variable">product</span> <span class="keyword">as</span> string
+    
     <span class="keyword">WRITE</span> <span class="string">"Enter the name of the product"</span>
     <span class="keyword">READ</span> <span class="variable">product</span>
+    
     <span class="keyword">WRITE</span> <span class="string">"Enter the price of an item"</span>
     <span class="keyword">READ</span> <span class="variable">price</span>
+    
     <span class="variable">discountPrice</span> ← <span class="variable">price</span> * <span class="number">0.15</span>
     <span class="variable">newPrice</span> ← <span class="variable">price</span> - <span class="variable">discountPrice</span>
+    
     <span class="keyword">WRITE</span> <span class="string">"The final cost is of"</span>, <span class="variable">product</span>
     <span class="keyword">WRITE</span> <span class="string">"is:"</span>, <span class="variable">newPrice</span>
-<span class="keyword">STOP</span>
+<span class="keyword">STOP</span></pre>
+                    </div>
+                </div>
+
+                <!-- CLASS EXERCISES SECTION -->
+                <div class="card" style="margin-top: 30px; background: linear-gradient(135deg, rgba(246, 173, 85, 0.15) 0%, rgba(237, 137, 54, 0.15) 100%); border: 2px solid #f6ad55;">
+                    <h3 style="color: #f6ad55;">✏️ Class Exercises: Create Your Own Algorithms</h3>
+                    <p>Now it's your turn! Try to write algorithms for the following problems. Click on each exercise to reveal hints, and when you're ready, check the sample solution.</p>
+
+                    <!-- Exercise 1 -->
+                    <div class="exercise-card" style="background: rgba(0,0,0,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                        <h4 style="color: #48bb78;">📝 Exercise 1: Calculate Rectangle Area and Perimeter</h4>
+                        <p><strong>Problem:</strong> Write an algorithm that asks the user to enter the length and width of a rectangle, then calculates and displays both the area and perimeter.</p>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(72, 187, 120, 0.2);">
+                                <span>💡 Hint 1: What variables do you need?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>You'll need variables for: <strong>length</strong>, <strong>width</strong>, <strong>area</strong>, and <strong>perimeter</strong></p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(72, 187, 120, 0.2);">
+                                <span>💡 Hint 2: What are the formulas?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p><strong>Area</strong> = length × width</p>
+                                <p><strong>Perimeter</strong> = 2 × (length + width)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(72, 187, 120, 0.2);">
+                                <span>💡 Hint 3: What are the steps?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <ol class="numbered-list">
+                                    <li>Declare your variables</li>
+                                    <li>Prompt for length and read it</li>
+                                    <li>Prompt for width and read it</li>
+                                    <li>Calculate area</li>
+                                    <li>Calculate perimeter</li>
+                                    <li>Display both results</li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(159, 122, 234, 0.3);">
+                                <span>✅ View Sample Solution</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="comment">// Variable Declaration</span>
+    <span class="keyword">Declare</span> <span class="variable">length, width, area, perimeter</span> <span class="keyword">as</span> float
+    
+    <span class="comment">// Input</span>
+    <span class="keyword">WRITE</span> <span class="string">"Enter the length of the rectangle"</span>
+    <span class="keyword">READ</span> <span class="variable">length</span>
+    
+    <span class="keyword">WRITE</span> <span class="string">"Enter the width of the rectangle"</span>
+    <span class="keyword">READ</span> <span class="variable">width</span>
+    
+    <span class="comment">// Processing</span>
+    <span class="variable">area</span> ← <span class="variable">length</span> * <span class="variable">width</span>
+    <span class="variable">perimeter</span> ← <span class="number">2</span> * (<span class="variable">length</span> + <span class="variable">width</span>)
+    
+    <span class="comment">// Output</span>
+    <span class="keyword">WRITE</span> <span class="string">"The area is:"</span>, <span class="variable">area</span>
+    <span class="keyword">WRITE</span> <span class="string">"The perimeter is:"</span>, <span class="variable">perimeter</span>
+<span class="keyword">STOP</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 2 -->
+                    <div class="exercise-card" style="background: rgba(0,0,0,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                        <h4 style="color: #63b3ed;">📝 Exercise 2: Temperature Converter (Celsius to Fahrenheit)</h4>
+                        <p><strong>Problem:</strong> Write an algorithm that asks the user to enter a temperature in Celsius and converts it to Fahrenheit.</p>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(99, 179, 237, 0.2);">
+                                <span>💡 Hint 1: What's the conversion formula?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p><strong>Fahrenheit</strong> = (Celsius × 9/5) + 32</p>
+                                <p>Or: <strong>Fahrenheit</strong> = (Celsius × 1.8) + 32</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(99, 179, 237, 0.2);">
+                                <span>💡 Hint 2: What variables do you need?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>You need two variables: <strong>celsius</strong> (input) and <strong>fahrenheit</strong> (calculated output)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(159, 122, 234, 0.3);">
+                                <span>✅ View Sample Solution</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="comment">// Variable Declaration</span>
+    <span class="keyword">Declare</span> <span class="variable">celsius, fahrenheit</span> <span class="keyword">as</span> float
+    
+    <span class="comment">// Input</span>
+    <span class="keyword">WRITE</span> <span class="string">"Enter the temperature in Celsius"</span>
+    <span class="keyword">READ</span> <span class="variable">celsius</span>
+    
+    <span class="comment">// Processing</span>
+    <span class="variable">fahrenheit</span> ← (<span class="variable">celsius</span> * <span class="number">1.8</span>) + <span class="number">32</span>
+    
+    <span class="comment">// Output</span>
+    <span class="keyword">WRITE</span> <span class="string">"The temperature in Fahrenheit is:"</span>, <span class="variable">fahrenheit</span>
+<span class="keyword">STOP</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 3 -->
+                    <div class="exercise-card" style="background: rgba(0,0,0,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                        <h4 style="color: #f687b3;">📝 Exercise 3: Simple Interest Calculator</h4>
+                        <p><strong>Problem:</strong> Write an algorithm that calculates simple interest. Ask the user to enter the principal amount, rate of interest, and time period in years.</p>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(246, 135, 179, 0.2);">
+                                <span>💡 Hint 1: What's the formula for simple interest?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p><strong>Simple Interest</strong> = (Principal × Rate × Time) / 100</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(246, 135, 179, 0.2);">
+                                <span>💡 Hint 2: What variables do you need?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>You need: <strong>principal</strong>, <strong>rate</strong>, <strong>time</strong>, and <strong>interest</strong></p>
+                                <p>You might also want to calculate and display the <strong>totalAmount</strong> = principal + interest</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(159, 122, 234, 0.3);">
+                                <span>✅ View Sample Solution</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="comment">// Variable Declaration</span>
+    <span class="keyword">Declare</span> <span class="variable">principal, rate, time, interest, totalAmount</span> <span class="keyword">as</span> float
+    
+    <span class="comment">// Input</span>
+    <span class="keyword">WRITE</span> <span class="string">"Enter the principal amount"</span>
+    <span class="keyword">READ</span> <span class="variable">principal</span>
+    
+    <span class="keyword">WRITE</span> <span class="string">"Enter the rate of interest"</span>
+    <span class="keyword">READ</span> <span class="variable">rate</span>
+    
+    <span class="keyword">WRITE</span> <span class="string">"Enter the time period in years"</span>
+    <span class="keyword">READ</span> <span class="variable">time</span>
+    
+    <span class="comment">// Processing</span>
+    <span class="variable">interest</span> ← (<span class="variable">principal</span> * <span class="variable">rate</span> * <span class="variable">time</span>) / <span class="number">100</span>
+    <span class="variable">totalAmount</span> ← <span class="variable">principal</span> + <span class="variable">interest</span>
+    
+    <span class="comment">// Output</span>
+    <span class="keyword">WRITE</span> <span class="string">"The simple interest is:"</span>, <span class="variable">interest</span>
+    <span class="keyword">WRITE</span> <span class="string">"The total amount is:"</span>, <span class="variable">totalAmount</span>
+<span class="keyword">STOP</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 4 -->
+                    <div class="exercise-card" style="background: rgba(0,0,0,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                        <h4 style="color: #fbd38d;">📝 Exercise 4: Grade Checker (Using Selection)</h4>
+                        <p><strong>Problem:</strong> Write an algorithm that asks for a student's mark (0-100) and outputs their grade based on this scale:</p>
+                        <ul style="margin: 10px 0 10px 30px;">
+                            <li>90-100: Grade A</li>
+                            <li>80-89: Grade B</li>
+                            <li>70-79: Grade C</li>
+                            <li>60-69: Grade D</li>
+                            <li>Below 60: Grade F</li>
+                        </ul>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(251, 211, 141, 0.2);">
+                                <span>💡 Hint 1: What control structure should you use?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Use <strong>Nested IF-THEN-ELSE</strong> statements to check each grade range</p>
+                                <p>Start by checking the highest grade first (>= 90), then work down</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(251, 211, 141, 0.2);">
+                                <span>💡 Hint 2: Structure your conditions</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Think of it like this:</p>
+                                <p>IF mark >= 90 THEN A</p>
+                                <p>ELSE IF mark >= 80 THEN B</p>
+                                <p>ELSE IF mark >= 70 THEN C</p>
+                                <p>... and so on</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(159, 122, 234, 0.3);">
+                                <span>✅ View Sample Solution</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="comment">// Variable Declaration</span>
+    <span class="keyword">Declare</span> <span class="variable">mark</span> <span class="keyword">as</span> integer
+    <span class="keyword">Declare</span> <span class="variable">grade</span> <span class="keyword">as</span> string
+    
+    <span class="comment">// Input</span>
+    <span class="keyword">WRITE</span> <span class="string">"Enter the student's mark (0-100)"</span>
+    <span class="keyword">READ</span> <span class="variable">mark</span>
+    
+    <span class="comment">// Processing using Nested IF</span>
+    <span class="keyword">IF</span> <span class="variable">mark</span> >= <span class="number">90</span> <span class="keyword">THEN</span>
+        <span class="variable">grade</span> ← <span class="string">"A"</span>
+    <span class="keyword">ELSE</span>
+        <span class="keyword">IF</span> <span class="variable">mark</span> >= <span class="number">80</span> <span class="keyword">THEN</span>
+            <span class="variable">grade</span> ← <span class="string">"B"</span>
+        <span class="keyword">ELSE</span>
+            <span class="keyword">IF</span> <span class="variable">mark</span> >= <span class="number">70</span> <span class="keyword">THEN</span>
+                <span class="variable">grade</span> ← <span class="string">"C"</span>
+            <span class="keyword">ELSE</span>
+                <span class="keyword">IF</span> <span class="variable">mark</span> >= <span class="number">60</span> <span class="keyword">THEN</span>
+                    <span class="variable">grade</span> ← <span class="string">"D"</span>
+                <span class="keyword">ELSE</span>
+                    <span class="variable">grade</span> ← <span class="string">"F"</span>
+                <span class="keyword">ENDIF</span>
+            <span class="keyword">ENDIF</span>
+        <span class="keyword">ENDIF</span>
+    <span class="keyword">ENDIF</span>
+    
+    <span class="comment">// Output</span>
+    <span class="keyword">WRITE</span> <span class="string">"The grade is:"</span>, <span class="variable">grade</span>
+<span class="keyword">STOP</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 5 -->
+                    <div class="exercise-card" style="background: rgba(0,0,0,0.2); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                        <h4 style="color: #9ae6b4;">📝 Exercise 5: Sum of Numbers (Using a Loop)</h4>
+                        <p><strong>Problem:</strong> Write an algorithm that uses a FOR loop to calculate the sum of the first 10 positive integers (1+2+3+...+10).</p>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(154, 230, 180, 0.2);">
+                                <span>💡 Hint 1: What variables do you need?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>You need a <strong>counter</strong> variable for the loop and a <strong>sum</strong> variable to accumulate the total</p>
+                                <p>Initialize sum to 0 before the loop starts!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(154, 230, 180, 0.2);">
+                                <span>💡 Hint 2: How does the loop work?</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>The FOR loop should go from 1 TO 10</p>
+                                <p>Inside the loop: add the current counter value to sum</p>
+                                <p><strong>sum ← sum + counter</strong></p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(159, 122, 234, 0.3);">
+                                <span>✅ View Sample Solution</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="comment">// Variable Declaration</span>
+    <span class="keyword">Declare</span> <span class="variable">counter, sum</span> <span class="keyword">as</span> integer
+    
+    <span class="comment">// Initialize sum to zero</span>
+    <span class="variable">sum</span> ← <span class="number">0</span>
+    
+    <span class="comment">// Loop from 1 to 10</span>
+    <span class="keyword">FOR</span> <span class="variable">counter</span> = <span class="number">1</span> <span class="keyword">TO</span> <span class="number">10</span> <span class="keyword">DO</span>
+        <span class="variable">sum</span> ← <span class="variable">sum</span> + <span class="variable">counter</span>
+    <span class="keyword">ENDFOR</span>
+    
+    <span class="comment">// Output</span>
+    <span class="keyword">WRITE</span> <span class="string">"The sum of numbers from 1 to 10 is:"</span>, <span class="variable">sum</span>
+<span class="keyword">STOP</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 6: Challenge -->
+                    <div class="exercise-card" style="background: rgba(0,0,0,0.2); border-radius: 15px; padding: 20px; margin: 20px 0; border: 2px dashed #e53e3e;">
+                        <h4 style="color: #fc8181;">🏆 CHALLENGE Exercise 6: Shopping Cart Total</h4>
+                        <p><strong>Problem:</strong> Write an algorithm for a shopping system that:</p>
+                        <ol class="numbered-list">
+                            <li>Asks the user how many items they want to buy</li>
+                            <li>Uses a loop to get the price of each item</li>
+                            <li>Calculates the subtotal</li>
+                            <li>Applies 15% tax</li>
+                            <li>If total is over $100, applies a 10% discount</li>
+                            <li>Displays subtotal, tax, discount (if any), and final total</li>
+                        </ol>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(252, 129, 129, 0.2);">
+                                <span>💡 Hint 1: Break it into parts</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p>This combines multiple concepts:</p>
+                                <ul class="styled-list">
+                                    <li>Input for number of items</li>
+                                    <li>FOR loop to collect prices</li>
+                                    <li>Accumulator pattern for subtotal</li>
+                                    <li>IF statement for discount</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(252, 129, 129, 0.2);">
+                                <span>💡 Hint 2: Variables you'll need</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <p><strong>numItems</strong> - how many items to buy</p>
+                                <p><strong>price</strong> - price of current item in loop</p>
+                                <p><strong>subtotal</strong> - sum of all prices</p>
+                                <p><strong>tax</strong> - calculated tax amount</p>
+                                <p><strong>discount</strong> - discount amount (if applicable)</p>
+                                <p><strong>total</strong> - final amount to pay</p>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable">
+                            <div class="expandable-header" style="background: rgba(159, 122, 234, 0.3);">
+                                <span>✅ View Sample Solution</span>
+                                <span class="expandable-arrow">▼</span>
+                            </div>
+                            <div class="expandable-content">
+                                <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="comment">// Variable Declaration</span>
+    <span class="keyword">Declare</span> <span class="variable">numItems, counter</span> <span class="keyword">as</span> integer
+    <span class="keyword">Declare</span> <span class="variable">price, subtotal, tax, discount, total</span> <span class="keyword">as</span> float
+    
+    <span class="comment">// Initialize</span>
+    <span class="variable">subtotal</span> ← <span class="number">0</span>
+    <span class="variable">discount</span> ← <span class="number">0</span>
+    
+    <span class="comment">// Get number of items</span>
+    <span class="keyword">WRITE</span> <span class="string">"How many items do you want to buy?"</span>
+    <span class="keyword">READ</span> <span class="variable">numItems</span>
+    
+    <span class="comment">// Loop to get prices</span>
+    <span class="keyword">FOR</span> <span class="variable">counter</span> = <span class="number">1</span> <span class="keyword">TO</span> <span class="variable">numItems</span> <span class="keyword">DO</span>
+        <span class="keyword">WRITE</span> <span class="string">"Enter price for item"</span>, <span class="variable">counter</span>
+        <span class="keyword">READ</span> <span class="variable">price</span>
+        <span class="variable">subtotal</span> ← <span class="variable">subtotal</span> + <span class="variable">price</span>
+    <span class="keyword">ENDFOR</span>
+    
+    <span class="comment">// Calculate tax (15%)</span>
+    <span class="variable">tax</span> ← <span class="variable">subtotal</span> * <span class="number">0.15</span>
+    <span class="variable">total</span> ← <span class="variable">subtotal</span> + <span class="variable">tax</span>
+    
+    <span class="comment">// Check for discount</span>
+    <span class="keyword">IF</span> <span class="variable">total</span> > <span class="number">100</span> <span class="keyword">THEN</span>
+        <span class="variable">discount</span> ← <span class="variable">total</span> * <span class="number">0.10</span>
+        <span class="variable">total</span> ← <span class="variable">total</span> - <span class="variable">discount</span>
+    <span class="keyword">ENDIF</span>
+    
+    <span class="comment">// Output</span>
+    <span class="keyword">WRITE</span> <span class="string">"Subtotal: $"</span>, <span class="variable">subtotal</span>
+    <span class="keyword">WRITE</span> <span class="string">"Tax (15%): $"</span>, <span class="variable">tax</span>
+    <span class="keyword">WRITE</span> <span class="string">"Discount: $"</span>, <span class="variable">discount</span>
+    <span class="keyword">WRITE</span> <span class="string">"Total to pay: $"</span>, <span class="variable">total</span>
+<span class="keyword">STOP</span></pre>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1067,14 +1498,14 @@
                     <div class="expandable-content">
                         <p>A statement that presents a condition that will be evaluated as true or false, and based on the result, the appropriate action is taken.</p>
                         <div class="code-block">
-<span class="keyword">IF</span> &lt;Condition&gt; <span class="keyword">THEN</span>
+<pre><span class="keyword">IF</span> &lt;Condition&gt; <span class="keyword">THEN</span>
     &lt;instructions that will be carried out if the condition is true&gt;
 <span class="keyword">END IF</span>
 
 <span class="comment">// Example:</span>
 <span class="keyword">IF</span> <span class="variable">Number</span> > <span class="number">5</span> <span class="keyword">THEN</span>
     <span class="variable">Sum</span> ← <span class="variable">number</span> * <span class="variable">number</span>
-<span class="keyword">END IF</span>
+<span class="keyword">END IF</span></pre>
                         </div>
                     </div>
                 </div>
@@ -1087,7 +1518,7 @@
                     <div class="expandable-content">
                         <p>The ELSE segment is executed should the condition be tested and found false.</p>
                         <div class="code-block">
-<span class="keyword">IF</span> &lt;Condition&gt; <span class="keyword">THEN</span>
+<pre><span class="keyword">IF</span> &lt;Condition&gt; <span class="keyword">THEN</span>
     &lt;statements that will be carried out if the condition is true&gt;
 <span class="keyword">ELSE</span>
     &lt;statements that will be carried out if the condition is false&gt;
@@ -1098,7 +1529,7 @@
     <span class="variable">neg_num</span> ← <span class="variable">neg_num</span> + <span class="number">1</span>
 <span class="keyword">ELSE</span>
     <span class="variable">pos_num</span> ← <span class="variable">pos_num</span> + <span class="number">1</span>
-<span class="keyword">ENDIF</span>
+<span class="keyword">ENDIF</span></pre>
                         </div>
                     </div>
                 </div>
@@ -1111,7 +1542,7 @@
                     <div class="expandable-content">
                         <p>A nested IF statement is a statement where an IF statement is within another IF statement.</p>
                         <div class="code-block">
-<span class="keyword">IF</span> &lt;condition1&gt; <span class="keyword">THEN</span>
+<pre><span class="keyword">IF</span> &lt;condition1&gt; <span class="keyword">THEN</span>
     statement 1
 <span class="keyword">ELSE</span>
     <span class="keyword">IF</span> &lt;condition2&gt; <span class="keyword">THEN</span>
@@ -1123,7 +1554,7 @@
             statement 4
         <span class="keyword">ENDIF</span>
     <span class="keyword">ENDIF</span>
-<span class="keyword">ENDIF</span>
+<span class="keyword">ENDIF</span></pre>
                         </div>
                     </div>
                 </div>
@@ -1136,13 +1567,13 @@
                     <div class="expandable-content">
                         <p>A selection structure used to give a finite set of options, accepting various inputs from a user, and providing a detailed set of operations for each option presented.</p>
                         <div class="code-block">
-<span class="keyword">CASE</span> &lt;Variable&gt;
+<pre><span class="keyword">CASE</span> &lt;Variable&gt;
     C1: &lt;Statements to be executed&gt;
     C2: &lt;Statements to be executed&gt;
     C3: &lt;Statements to be executed&gt;
     C4: &lt;Statements to be executed&gt;
     <span class="keyword">Default</span>: &lt;Statements if an unacceptable input is entered&gt;
-<span class="keyword">ENDCASE</span>
+<span class="keyword">ENDCASE</span></pre>
                         </div>
                     </div>
                 </div>
@@ -1241,20 +1672,20 @@
                 <h3>WHILE Loop</h3>
                 <p>Executes a series of statements as long as a given condition is True.</p>
                 <div class="code-block">
-<span class="keyword">WHILE</span> &lt;Condition&gt; <span class="keyword">DO</span>
+<pre><span class="keyword">WHILE</span> &lt;Condition&gt; <span class="keyword">DO</span>
     &lt;Action to be taken if condition is true&gt;
 <span class="keyword">ENDWHILE</span>
 
 <span class="comment">// Example:</span>
 <span class="keyword">WHILE</span> <span class="variable">Value</span> <> <span class="number">-1</span> <span class="keyword">DO</span>
     &lt;Actions to be repeated&gt;
-<span class="keyword">ENDWHILE</span>
+<span class="keyword">ENDWHILE</span></pre>
                 </div>
 
                 <h3>FOR Loop</h3>
                 <p>Repeats a group of statements a specified number of times. Used when the exact number of repetitions is known.</p>
                 <div class="code-block">
-<span class="keyword">FOR</span> &lt;Variable&gt; = &lt;Beginning value&gt; <span class="keyword">TO</span> &lt;Ending value&gt; <span class="keyword">DO</span>
+<pre><span class="keyword">FOR</span> &lt;Variable&gt; = &lt;Beginning value&gt; <span class="keyword">TO</span> &lt;Ending value&gt; <span class="keyword">DO</span>
     &lt;Actions to be repeated&gt;
 <span class="keyword">ENDFOR</span>
 
@@ -1262,7 +1693,7 @@
 <span class="keyword">FOR</span> <span class="variable">tally</span> = <span class="number">1</span> <span class="keyword">TO</span> <span class="number">10</span> <span class="keyword">DO</span>
     <span class="keyword">PRINT</span> <span class="string">"Enter a value greater than 4"</span>
     <span class="keyword">READ</span> <span class="variable">value</span>
-<span class="keyword">ENDFOR</span>
+<span class="keyword">ENDFOR</span></pre>
                 </div>
 
                 <div class="highlight-box green">
