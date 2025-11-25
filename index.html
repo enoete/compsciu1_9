@@ -765,6 +765,7 @@
             <button class="nav-tab" onclick="showSection('flowcharts')">📊 Flowcharts</button>
             <button class="nav-tab" onclick="showSection('control')">🔀 Control Structures</button>
             <button class="nav-tab" onclick="showSection('loops')">🔁 Loops</button>
+            <button class="nav-tab" onclick="showSection('analysis')">🔍 Algorithm Analysis</button>
             <button class="nav-tab" onclick="showSection('requirements')">📋 Requirements</button>
             <button class="nav-tab" onclick="showSection('quiz')">📝 Quiz</button>
         </nav>
@@ -861,10 +862,67 @@
                 </div>
 
                 <div class="card" style="margin-top: 30px; background: rgba(159, 122, 234, 0.15);">
-                    <h3>🧩 Modular Programming (Divide and Conquer)</h3>
-                    <p>Also called <strong>Top-Down Design</strong>, this approach involves continuously breaking or dividing a problem into successively smaller problem sets or sub-problems.</p>
+                    <h3>🧩 Problem-Solving Approaches</h3>
+                    
+                    <h4 style="color: #9f7aea;">1. Top-Down Design (Divide and Conquer)</h4>
+                    <p>Also called <strong>Modular Programming</strong>, this approach involves continuously breaking or dividing a problem into successively smaller problem sets or sub-problems. Start with the main problem and break it down into smaller, manageable parts.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Example:</strong> Creating a Student Management System</p>
+                        <ol class="numbered-list">
+                            <li><strong>Main Problem:</strong> Student Management System</li>
+                            <li><strong>Major Modules:</strong> Student Registration, Grade Management, Attendance Tracking, Report Generation</li>
+                            <li><strong>Sub-modules for Grade Management:</strong> Enter Grades, Calculate Average, Determine Letter Grade, Generate Transcript</li>
+                        </ol>
+                    </div>
+
+                    <h4 style="color: #9f7aea; margin-top: 25px;">2. Bottom-Up Approach</h4>
+                    <p>This approach starts with the smallest, most basic components and builds up to create the complete solution. You begin by solving the simplest sub-problems first, then combine them to solve larger problems.</p>
                     
                     <div class="highlight-box blue">
+                        <p><strong>Example:</strong> Building a Calculator Program</p>
+                        <ol class="numbered-list">
+                            <li><strong>Start with basics:</strong> Create functions for add, subtract, multiply, divide</li>
+                            <li><strong>Build up:</strong> Create input validation function</li>
+                            <li><strong>Combine:</strong> Create display function for results</li>
+                            <li><strong>Final integration:</strong> Combine all functions into the main calculator program</li>
+                        </ol>
+                    </div>
+
+                    <h4 style="color: #9f7aea; margin-top: 25px;">3. Step-wise Refinement</h4>
+                    <p>This is a systematic approach where you start with a general solution and progressively refine it into more detailed steps. Each refinement adds more detail while maintaining the overall structure.</p>
+                    
+                    <div class="highlight-box green">
+                        <p><strong>Example:</strong> Making Tea (Step-wise Refinement)</p>
+                        <p><strong>Level 1 (General):</strong></p>
+                        <p>1. Prepare tea</p>
+                        
+                        <p><strong>Level 2 (More Detail):</strong></p>
+                        <p>1. Boil water<br>2. Prepare cup<br>3. Make tea<br>4. Serve</p>
+                        
+                        <p><strong>Level 3 (Detailed):</strong></p>
+                        <p>1. Boil water<br>&nbsp;&nbsp;&nbsp;1.1 Fill kettle with water<br>&nbsp;&nbsp;&nbsp;1.2 Turn on kettle<br>&nbsp;&nbsp;&nbsp;1.3 Wait until water boils<br>
+                        2. Prepare cup<br>&nbsp;&nbsp;&nbsp;2.1 Get clean cup<br>&nbsp;&nbsp;&nbsp;2.2 Place tea bag in cup<br>&nbsp;&nbsp;&nbsp;2.3 Add sugar if desired<br>
+                        3. Make tea<br>&nbsp;&nbsp;&nbsp;3.1 Pour hot water into cup<br>&nbsp;&nbsp;&nbsp;3.2 Let tea steep for 3 minutes<br>&nbsp;&nbsp;&nbsp;3.3 Remove tea bag<br>&nbsp;&nbsp;&nbsp;3.4 Add milk if desired<br>
+                        4. Serve<br>&nbsp;&nbsp;&nbsp;4.1 Stir tea<br>&nbsp;&nbsp;&nbsp;4.2 Serve hot</p>
+                    </div>
+
+                    <div class="symbol-grid" style="margin-top: 25px;">
+                        <div class="symbol-card" style="text-align: left;">
+                            <h4 style="color: #48bb78;">Top-Down</h4>
+                            <p>✓ Start with the big picture<br>✓ Break into smaller parts<br>✓ Easier to see overall structure<br>✓ Good for large projects</p>
+                        </div>
+                        <div class="symbol-card" style="text-align: left;">
+                            <h4 style="color: #63b3ed;">Bottom-Up</h4>
+                            <p>✓ Start with basic components<br>✓ Build up to final solution<br>✓ Components are reusable<br>✓ Good for modular systems</p>
+                        </div>
+                        <div class="symbol-card" style="text-align: left;">
+                            <h4 style="color: #f6ad55;">Step-wise Refinement</h4>
+                            <p>✓ Progressive detail addition<br>✓ Maintains structure<br>✓ Easy to understand<br>✓ Good for complex algorithms</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box orange" style="margin-top: 25px;">
                         <p><strong>Benefits of Modular Programming:</strong></p>
                         <ul class="styled-list">
                             <li>Problem solution becomes more controllable</li>
@@ -874,15 +932,77 @@
                         </ul>
                     </div>
 
-                    <h4>Two Key Features:</h4>
+                    <h4>Key Features of Modular Design:</h4>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
                         <div class="highlight-box green">
                             <h4 style="color: white; margin-top: 0;">Cohesion</h4>
-                            <p>The arrangement of functions or modules in a system in relation to performing a particular task well.</p>
+                            <p>The arrangement of functions or modules in a system in relation to performing a particular task well. High cohesion means each module focuses on a single task.</p>
                         </div>
-                        <div class="highlight-box orange">
+                        <div class="highlight-box red">
                             <h4 style="color: white; margin-top: 0;">Coupling</h4>
-                            <p>A measure of how interconnected or functionally dependent the modules are within a system.</p>
+                            <p>A measure of how interconnected or functionally dependent the modules are within a system. Low coupling is desirable - modules should be as independent as possible.</p>
+                        </div>
+                    </div>
+
+                    <h4 style="margin-top: 25px;">Hierarchy Charts (Structure Charts)</h4>
+                    <p>A hierarchy chart is a tree-like structure that illustrates the relationships between different modules of a program. The root represents the main controlling program, and branches represent sub-programs.</p>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-title">📊 Example: Online Shopping System Hierarchy</div>
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="background: linear-gradient(135deg, #e94560 0%, #c53030 100%); padding: 15px; border-radius: 10px; display: inline-block; margin-bottom: 30px;">
+                                <strong>Main: Online Shopping System</strong>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                                <div>
+                                    <div style="height: 30px; width: 2px; background: #718096; margin: 0 auto;"></div>
+                                    <div style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                                        User Management
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                                        <div style="background: rgba(72, 187, 120, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Register User</div>
+                                        <div style="background: rgba(72, 187, 120, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Login</div>
+                                        <div style="background: rgba(72, 187, 120, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Update Profile</div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div style="height: 30px; width: 2px; background: #718096; margin: 0 auto;"></div>
+                                    <div style="background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%); padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                                        Product Catalog
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                                        <div style="background: rgba(66, 153, 225, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Browse Products</div>
+                                        <div style="background: rgba(66, 153, 225, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Search Products</div>
+                                        <div style="background: rgba(66, 153, 225, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">View Details</div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div style="height: 30px; width: 2px; background: #718096; margin: 0 auto;"></div>
+                                    <div style="background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%); padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                                        Shopping Cart
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                                        <div style="background: rgba(246, 173, 85, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Add to Cart</div>
+                                        <div style="background: rgba(246, 173, 85, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Remove from Cart</div>
+                                        <div style="background: rgba(246, 173, 85, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Calculate Total</div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div style="height: 30px; width: 2px; background: #718096; margin: 0 auto;"></div>
+                                    <div style="background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%); padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                                        Checkout
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                                        <div style="background: rgba(159, 122, 234, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Process Payment</div>
+                                        <div style="background: rgba(159, 122, 234, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Generate Invoice</div>
+                                        <div style="background: rgba(159, 122, 234, 0.3); padding: 8px; border-radius: 5px; font-size: 0.9rem;">Send Confirmation</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1735,6 +1855,591 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Algorithm Analysis Section -->
+        <section id="analysis" class="section">
+            <div class="card">
+                <h2><span class="emoji-icon">🔍</span> Algorithm Analysis & Testing</h2>
+                <p>Once an algorithm is developed, we need to verify that it works correctly. This involves <strong>interpreting</strong> algorithms to understand their behavior and <strong>analyzing</strong> them for correctness using systematic testing methods.</p>
+
+                <h3>Interpreting Algorithms</h3>
+                <p>Algorithm interpretation means reading through an algorithm (whether in narrative, pseudocode, or flowchart form) and understanding:</p>
+                <ul class="styled-list">
+                    <li>What inputs are required</li>
+                    <li>What processing steps are performed</li>
+                    <li>What output is produced</li>
+                    <li>The logical flow of control</li>
+                </ul>
+
+                <div class="highlight-box blue">
+                    <h4 style="color: white; margin-top: 0;">💡 Example: Interpret This Algorithm</h4>
+                    <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="keyword">Declare</span> <span class="variable">num1, num2, result</span> <span class="keyword">as</span> integer
+    <span class="keyword">READ</span> <span class="variable">num1</span>
+    <span class="keyword">READ</span> <span class="variable">num2</span>
+    <span class="keyword">IF</span> <span class="variable">num1</span> > <span class="variable">num2</span> <span class="keyword">THEN</span>
+        <span class="variable">result</span> ← <span class="variable">num1</span> - <span class="variable">num2</span>
+    <span class="keyword">ELSE</span>
+        <span class="variable">result</span> ← <span class="variable">num2</span> - <span class="variable">num1</span>
+    <span class="keyword">ENDIF</span>
+    <span class="keyword">WRITE</span> <span class="variable">result</span>
+<span class="keyword">STOP</span></pre>
+                    </div>
+                    <p><strong>Interpretation:</strong> This algorithm finds the absolute difference between two numbers by subtracting the smaller from the larger, ensuring the result is always positive.</p>
+                </div>
+
+                <h3>Testing Algorithms for Correctness</h3>
+                <p>To verify an algorithm achieves its stated objective, we use systematic testing methods:</p>
+
+                <h4 style="color: #48bb78;">1. Trace Tables</h4>
+                <p>A trace table is a technique used to test algorithms by tracking the values of variables at each step of execution. It helps identify logic errors and verify that the algorithm produces correct outputs for given inputs.</p>
+
+                <div class="highlight-box green">
+                    <h4 style="color: white; margin-top: 0;">How to Create a Trace Table:</h4>
+                    <ol class="numbered-list">
+                        <li>Create columns for each variable in the algorithm</li>
+                        <li>Add a column for the output (if any)</li>
+                        <li>Work through the algorithm step by step</li>
+                        <li>Record the value of each variable after it changes</li>
+                        <li>Verify the final output matches expectations</li>
+                    </ol>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-title">📊 Example: Trace Table for Sum of 3 Numbers</div>
+                    
+                    <p><strong>Algorithm:</strong></p>
+                    <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="keyword">Declare</span> <span class="variable">a, b, c, sum</span> <span class="keyword">as</span> integer
+    <span class="variable">sum</span> ← <span class="number">0</span>
+    <span class="keyword">READ</span> <span class="variable">a</span>
+    <span class="keyword">READ</span> <span class="variable">b</span>
+    <span class="keyword">READ</span> <span class="variable">c</span>
+    <span class="variable">sum</span> ← <span class="variable">a</span> + <span class="variable">b</span> + <span class="variable">c</span>
+    <span class="keyword">WRITE</span> <span class="variable">sum</span>
+<span class="keyword">STOP</span></pre>
+                    </div>
+
+                    <p><strong>Test Data:</strong> a = 5, b = 10, c = 3</p>
+                    
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>a</th>
+                                <th>b</th>
+                                <th>c</th>
+                                <th>sum</th>
+                                <th>Output</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Initialize</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>sum ← 0</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>0</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>READ a</td>
+                                <td>5</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>0</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>READ b</td>
+                                <td>5</td>
+                                <td>10</td>
+                                <td>-</td>
+                                <td>0</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>READ c</td>
+                                <td>5</td>
+                                <td>10</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>sum ← a + b + c</td>
+                                <td>5</td>
+                                <td>10</td>
+                                <td>3</td>
+                                <td>18</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>WRITE sum</td>
+                                <td>5</td>
+                                <td>10</td>
+                                <td>3</td>
+                                <td>18</td>
+                                <td><strong>18</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Conclusion:</strong> ✓ The algorithm correctly produces 18 as the sum of 5 + 10 + 3</p>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-title">📊 Example: Trace Table with Selection (IF statement)</div>
+                    
+                    <p><strong>Algorithm:</strong> Check if a number is even or odd</p>
+                    <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="keyword">Declare</span> <span class="variable">num, remainder</span> <span class="keyword">as</span> integer
+    <span class="keyword">Declare</span> <span class="variable">message</span> <span class="keyword">as</span> string
+    <span class="keyword">READ</span> <span class="variable">num</span>
+    <span class="variable">remainder</span> ← <span class="variable">num</span> MOD <span class="number">2</span>
+    <span class="keyword">IF</span> <span class="variable">remainder</span> = <span class="number">0</span> <span class="keyword">THEN</span>
+        <span class="variable">message</span> ← <span class="string">"Even"</span>
+    <span class="keyword">ELSE</span>
+        <span class="variable">message</span> ← <span class="string">"Odd"</span>
+    <span class="keyword">ENDIF</span>
+    <span class="keyword">WRITE</span> <span class="variable">message</span>
+<span class="keyword">STOP</span></pre>
+                    </div>
+
+                    <p><strong>Test Data 1:</strong> num = 8</p>
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>num</th>
+                                <th>remainder</th>
+                                <th>message</th>
+                                <th>Output</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>READ num</td>
+                                <td>8</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>remainder ← num MOD 2</td>
+                                <td>8</td>
+                                <td>0</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>IF remainder = 0 (TRUE)</td>
+                                <td>8</td>
+                                <td>0</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>message ← "Even"</td>
+                                <td>8</td>
+                                <td>0</td>
+                                <td>Even</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>WRITE message</td>
+                                <td>8</td>
+                                <td>0</td>
+                                <td>Even</td>
+                                <td><strong>Even</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p><strong>Test Data 2:</strong> num = 7</p>
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>num</th>
+                                <th>remainder</th>
+                                <th>message</th>
+                                <th>Output</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>READ num</td>
+                                <td>7</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>remainder ← num MOD 2</td>
+                                <td>7</td>
+                                <td>1</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>IF remainder = 0 (FALSE)</td>
+                                <td>7</td>
+                                <td>1</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>message ← "Odd"</td>
+                                <td>7</td>
+                                <td>1</td>
+                                <td>Odd</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>WRITE message</td>
+                                <td>7</td>
+                                <td>1</td>
+                                <td>Odd</td>
+                                <td><strong>Odd</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-title">📊 Example: Trace Table with Loop</div>
+                    
+                    <p><strong>Algorithm:</strong> Calculate factorial of 4 (4! = 4 × 3 × 2 × 1)</p>
+                    <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="keyword">Declare</span> <span class="variable">n, counter, factorial</span> <span class="keyword">as</span> integer
+    <span class="variable">n</span> ← <span class="number">4</span>
+    <span class="variable">factorial</span> ← <span class="number">1</span>
+    <span class="keyword">FOR</span> <span class="variable">counter</span> = <span class="number">1</span> <span class="keyword">TO</span> <span class="variable">n</span> <span class="keyword">DO</span>
+        <span class="variable">factorial</span> ← <span class="variable">factorial</span> * <span class="variable">counter</span>
+    <span class="keyword">ENDFOR</span>
+    <span class="keyword">WRITE</span> <span class="variable">factorial</span>
+<span class="keyword">STOP</span></pre>
+                    </div>
+
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>n</th>
+                                <th>counter</th>
+                                <th>factorial</th>
+                                <th>Output</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>n ← 4</td>
+                                <td>4</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>factorial ← 1</td>
+                                <td>4</td>
+                                <td>-</td>
+                                <td>1</td>
+                                <td></td>
+                            </tr>
+                            <tr style="background: rgba(72, 187, 120, 0.1);">
+                                <td>Loop: counter = 1</td>
+                                <td>4</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>factorial ← 1 * 1</td>
+                                <td>4</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td></td>
+                            </tr>
+                            <tr style="background: rgba(72, 187, 120, 0.1);">
+                                <td>Loop: counter = 2</td>
+                                <td>4</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>factorial ← 1 * 2</td>
+                                <td>4</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td></td>
+                            </tr>
+                            <tr style="background: rgba(72, 187, 120, 0.1);">
+                                <td>Loop: counter = 3</td>
+                                <td>4</td>
+                                <td>3</td>
+                                <td>2</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>factorial ← 2 * 3</td>
+                                <td>4</td>
+                                <td>3</td>
+                                <td>6</td>
+                                <td></td>
+                            </tr>
+                            <tr style="background: rgba(72, 187, 120, 0.1);">
+                                <td>Loop: counter = 4</td>
+                                <td>4</td>
+                                <td>4</td>
+                                <td>6</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>factorial ← 6 * 4</td>
+                                <td>4</td>
+                                <td>4</td>
+                                <td>24</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Loop ends (counter > n)</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>24</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>WRITE factorial</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>24</td>
+                                <td><strong>24</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Conclusion:</strong> ✓ The algorithm correctly calculates 4! = 24</p>
+                </div>
+
+                <h4 style="color: #f6ad55; margin-top: 30px;">2. Test Plans</h4>
+                <p>A test plan is a comprehensive document that outlines the strategy for testing an algorithm. It includes different types of test data to ensure the algorithm works under all conditions.</p>
+
+                <div class="highlight-box orange">
+                    <h4 style="color: white; margin-top: 0;">Types of Test Data:</h4>
+                    <ul class="styled-list">
+                        <li><strong>Normal Data:</strong> Typical, valid inputs that the algorithm should handle correctly</li>
+                        <li><strong>Boundary Data:</strong> Values at the edge of acceptable ranges (e.g., minimum, maximum)</li>
+                        <li><strong>Abnormal/Erroneous Data:</strong> Invalid inputs to test error handling</li>
+                        <li><strong>Extreme Data:</strong> Very large or very small values within valid range</li>
+                    </ul>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-title">📋 Example Test Plan: Grade Checker (0-100)</div>
+                    
+                    <p><strong>Algorithm Specification:</strong> Input a mark (0-100) and output the grade (A, B, C, D, or F)</p>
+                    
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Test Type</th>
+                                <th>Test Data</th>
+                                <th>Expected Output</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Normal</strong></td>
+                                <td>95</td>
+                                <td>Grade A</td>
+                                <td>Test typical high mark</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Normal</strong></td>
+                                <td>82</td>
+                                <td>Grade B</td>
+                                <td>Test typical mid-high mark</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Normal</strong></td>
+                                <td>55</td>
+                                <td>Grade F</td>
+                                <td>Test typical failing mark</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Boundary</strong></td>
+                                <td>0</td>
+                                <td>Grade F</td>
+                                <td>Test minimum valid mark</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Boundary</strong></td>
+                                <td>100</td>
+                                <td>Grade A</td>
+                                <td>Test maximum valid mark</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Boundary</strong></td>
+                                <td>90</td>
+                                <td>Grade A</td>
+                                <td>Test lower boundary of A grade</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Boundary</strong></td>
+                                <td>89</td>
+                                <td>Grade B</td>
+                                <td>Test upper boundary of B grade</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Boundary</strong></td>
+                                <td>60</td>
+                                <td>Grade D</td>
+                                <td>Test lower boundary of D grade</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Boundary</strong></td>
+                                <td>59</td>
+                                <td>Grade F</td>
+                                <td>Test upper boundary of F grade</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Abnormal</strong></td>
+                                <td>-5</td>
+                                <td>Error message</td>
+                                <td>Test negative number</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Abnormal</strong></td>
+                                <td>105</td>
+                                <td>Error message</td>
+                                <td>Test value above maximum</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Abnormal</strong></td>
+                                <td>"ABC"</td>
+                                <td>Error message</td>
+                                <td>Test non-numeric input</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight-box red">
+                    <h4 style="color: white; margin-top: 0;">⚠️ Common Testing Mistakes to Avoid:</h4>
+                    <ul class="styled-list">
+                        <li>Testing only with normal data (must include boundary and abnormal cases)</li>
+                        <li>Not testing all branches of IF statements</li>
+                        <li>Forgetting to test loop boundaries (first iteration, last iteration, zero iterations)</li>
+                        <li>Not documenting expected vs. actual results</li>
+                        <li>Testing with data that's too similar</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="margin-top: 30px; background: linear-gradient(135deg, rgba(246, 173, 85, 0.15) 0%, rgba(237, 137, 54, 0.15) 100%); border: 2px solid #f6ad55;">
+                    <h3 style="color: #f6ad55;">✏️ Practice Exercise: Create a Trace Table</h3>
+                    
+                    <p><strong>Algorithm:</strong> Find the largest of three numbers</p>
+                    <div class="code-block">
+<pre><span class="keyword">START</span>
+    <span class="keyword">Declare</span> <span class="variable">a, b, c, largest</span> <span class="keyword">as</span> integer
+    <span class="keyword">READ</span> <span class="variable">a, b, c</span>
+    <span class="variable">largest</span> ← <span class="variable">a</span>
+    <span class="keyword">IF</span> <span class="variable">b</span> > <span class="variable">largest</span> <span class="keyword">THEN</span>
+        <span class="variable">largest</span> ← <span class="variable">b</span>
+    <span class="keyword">ENDIF</span>
+    <span class="keyword">IF</span> <span class="variable">c</span> > <span class="variable">largest</span> <span class="keyword">THEN</span>
+        <span class="variable">largest</span> ← <span class="variable">c</span>
+    <span class="keyword">ENDIF</span>
+    <span class="keyword">WRITE</span> <span class="variable">largest</span>
+<span class="keyword">STOP</span></pre>
+                    </div>
+                    
+                    <div class="expandable">
+                        <div class="expandable-header" style="background: rgba(246, 173, 85, 0.2);">
+                            <span>💡 Test Data: a = 12, b = 25, c = 18</span>
+                            <span class="expandable-arrow">▼</span>
+                        </div>
+                        <div class="expandable-content">
+                            <table class="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th>Step</th>
+                                        <th>a</th>
+                                        <th>b</th>
+                                        <th>c</th>
+                                        <th>largest</th>
+                                        <th>Output</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>READ a, b, c</td>
+                                        <td>12</td>
+                                        <td>25</td>
+                                        <td>18</td>
+                                        <td>-</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>largest ← a</td>
+                                        <td>12</td>
+                                        <td>25</td>
+                                        <td>18</td>
+                                        <td>12</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>IF b > largest (25 > 12 = TRUE)</td>
+                                        <td>12</td>
+                                        <td>25</td>
+                                        <td>18</td>
+                                        <td>12</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>largest ← b</td>
+                                        <td>12</td>
+                                        <td>25</td>
+                                        <td>18</td>
+                                        <td>25</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>IF c > largest (18 > 25 = FALSE)</td>
+                                        <td>12</td>
+                                        <td>25</td>
+                                        <td>18</td>
+                                        <td>25</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>WRITE largest</td>
+                                        <td>12</td>
+                                        <td>25</td>
+                                        <td>18</td>
+                                        <td>25</td>
+                                        <td><strong>25</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
