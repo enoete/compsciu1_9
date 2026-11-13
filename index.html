@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problem Solving with Computers — CS Unit 1</title>
+
+<meta property="og:title" content="Problem Solving with Computers">
+<meta property="og:description" content="Write pseudocode and watch it actually run. Trace tables that build themselves, a bug hunt, a flowchart builder and the five-step method for turning any problem into an algorithm.">
+<meta property="og:site_name" content="CS Unit 1 · CFBC">
+<meta name="description" content="Problem solving, algorithms, pseudocode, flowcharts, control structures, loops, trace tables, test plans and requirements — with a live pseudocode interpreter.">
+<meta name="theme-color" content="#A8327D">
+<meta name="lesson:duration"   content="95 min">
+<meta name="lesson:difficulty" content="Core">
+<meta name="lesson:objectives" content="10">
+<meta name="lesson:questions"  content="40">
+<meta name="lesson:sections"   content="9">
+<meta name="lesson:topics"     content="Problem solving,Algorithms,Pseudocode,Flowcharts,Selection,Iteration,Trace tables,Test plans,Requirements,Top-down design">
+<meta name="lesson:activities" content="Pseudocode machine,Refinement builder,Ambiguity game,Flowchart builder,Loop lab,Trace table trainer,Bug hunt,Requirements sort,Unit test">
+<meta name="lesson:updated"    content="2026-11-13">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEFF2; --board:#FFFFFF; --ink:#16202C; --ink2:#556577; --ink3:#8996A5;
+  --line:#D2D9E1; --hot:#A8327D; --amber:#F2A93B; --violet:#5A4B9C; --mint:#118D77; --red:#E04B2F; --cyan:#0E7C9B;
+  --lowbg:#DFE5EC; --code:#1B2430;
+  --shadow:0 1px 0 rgba(22,32,44,.06), 0 12px 28px -18px rgba(22,32,44,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Work Sans",system-ui,sans-serif;font-size:17px;line-height:1.65;
+  background-image:linear-gradient(rgba(22,32,44,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(22,32,44,.03) 1px,transparent 1px);background-size:26px 26px}
+h1,h2,h3,h4{font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.12;letter-spacing:-.02em;margin:0}
+p{margin:0 0 1em}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px}
+.mono{font-family:"JetBrains Mono",monospace}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
+button{font:inherit}
+.hide{display:none!important}
+
+nav.top{position:sticky;top:0;z-index:50;background:rgba(237,239,242,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:4px;overflow-x:auto;padding:9px 22px;scrollbar-width:none}
+nav.top .wrap::-webkit-scrollbar{display:none}
+nav.top a{white-space:nowrap;text-decoration:none;color:var(--ink2);font-size:.83rem;font-weight:500;padding:6px 10px;border-radius:7px}
+nav.top a:hover{background:var(--board);color:var(--ink)}
+nav.top a.home{color:var(--hot);font-weight:600}
+
+.hero{padding:42px 0 10px}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:.78rem;color:var(--hot);font-weight:700}
+.hero h1{font-size:clamp(2rem,5.6vw,3.4rem);margin:12px 0 0}
+.hero .lede{max-width:58ch;color:var(--ink2);font-size:1.08rem;margin-top:15px}
+section{padding:46px 0 6px;scroll-margin-top:62px}
+section>.wrap>h2{font-size:clamp(1.55rem,4vw,2.1rem);margin-bottom:6px}
+.sub{color:var(--ink2);max-width:64ch;margin-bottom:22px}
+.panel{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+.note{border-left:4px solid var(--violet);background:rgba(90,75,156,.06);border-radius:0 10px 10px 0;padding:13px 17px;margin:16px 0}
+.note.warn{border-left-color:var(--amber);background:#FFF6E6}
+.note.win{border-left-color:var(--mint);background:rgba(17,141,119,.07)}
+.note.real{border-left-color:var(--red);background:rgba(224,75,47,.06)}
+.note b{font-family:"Space Grotesk",sans-serif}
+.analogy{border-left:4px solid var(--amber);background:#FFF6E6;border-radius:0 10px 10px 0;padding:16px 18px;margin:0 0 20px}
+.analogy h4{font-size:1rem;margin-bottom:6px;color:#8A5B08}
+.analogy p{margin:0;font-size:.96rem;color:#5D4208}
+.btn{border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:9px;padding:9px 16px;font-size:.9rem;font-weight:600;cursor:pointer}
+.btn:hover{background:#0D1620}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--paper)}
+.btn.accent{background:var(--hot);border-color:var(--hot)}
+.btn.accent:hover{background:#8E2A69}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btnrow{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.feedback{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:.94rem;display:none}
+.feedback.show{display:block}
+.feedback.good{background:rgba(17,141,119,.1);border-left:4px solid var(--mint)}
+.feedback.bad{background:rgba(224,75,47,.09);border-left:4px solid var(--red)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1px solid var(--line);background:var(--board);border-radius:9px;padding:7px 13px;font-size:.87rem;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--hot);color:#fff;border-color:var(--hot)}
+.tab.done{border-color:var(--mint);color:#0B5F50;background:rgba(17,141,119,.08)}
+.tab.done[aria-pressed="true"]{background:var(--mint);color:#fff}
+
+/* ---- code editor + machine ---- */
+.code{background:var(--code);border-radius:11px;padding:4px 0;font-family:"JetBrains Mono",monospace;font-size:.86rem;line-height:1.75;overflow-x:auto}
+.code .ln{display:flex;gap:0;padding:0 12px;color:#D7DEE8}
+.code .ln .tx{white-space:pre;flex:1 1 auto}
+.code .ln .no{color:#55637A;width:2.2em;flex:0 0 auto;text-align:right;margin-right:12px;user-select:none}
+.code .ln.cur{background:rgba(242,169,59,.22)}
+.code .ln.cur .no{color:var(--amber);font-weight:700}
+.code .ln.done{opacity:.55}
+.code .kw{color:#F08FC0;font-weight:700}
+.code .st{color:#8ED99A}
+.code .nu{color:#F2A93B}
+.code .cm{color:#6B7A90;font-style:italic}
+textarea.edit{width:100%;min-height:210px;background:var(--code);color:#D7DEE8;border:1px solid #2C3A4C;border-radius:11px;
+  padding:12px 14px;font-family:"JetBrains Mono",monospace;font-size:.86rem;line-height:1.7;resize:vertical}
+.vars{display:flex;gap:8px;flex-wrap:wrap}
+.vbox{border:1px solid var(--line);border-radius:9px;padding:7px 11px;background:var(--paper);min-width:74px}
+.vbox .vn{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--ink3)}
+.vbox .vv{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1rem}
+.vbox.changed{border-color:var(--amber);background:#FFF6E6;box-shadow:0 0 0 3px rgba(242,169,59,.2)}
+.screen{background:#0C131C;border-radius:11px;padding:12px 14px;font-family:"JetBrains Mono",monospace;font-size:.86rem;
+  color:#9BE7B0;min-height:84px;max-height:200px;overflow-y:auto;white-space:pre-wrap}
+.screen .pr{color:#7F8EA3}
+.screen:empty::before{content:"(nothing printed yet)";color:#55637A}
+table.tt{border-collapse:collapse;width:100%;font-family:"JetBrains Mono",monospace;font-size:.82rem}
+table.tt th,table.tt td{border:1px solid var(--line);padding:5px 7px;text-align:center;white-space:nowrap}
+table.tt th{background:var(--paper);font-size:.72rem;color:var(--ink2)}
+table.tt td.l,table.tt th.l{text-align:left}
+table.tt tr.new td{background:#FFF6E6}
+table.tt td.out{font-weight:700;color:#0B5F50}
+table.tt td.ok{background:rgba(17,141,119,.14);color:#0B5F50;font-weight:700}
+table.tt td.no{background:rgba(224,75,47,.12);color:#8E2A17;font-weight:700}
+table.tt input{width:4.4em;border:1px solid var(--line);border-radius:5px;padding:3px 5px;font-family:"JetBrains Mono",monospace;font-size:.82rem;text-align:center;background:var(--board)}
+table.tt input:focus{outline:2px solid var(--hot);border-color:var(--hot)}
+.scroll{overflow-x:auto}
+.inprow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.inprow input{border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-family:"JetBrains Mono",monospace;font-size:.86rem;width:170px;background:var(--board);color:var(--ink)}
+
+/* ---- drag & drop sorting ---- */
+.pool{display:flex;gap:8px;flex-wrap:wrap;min-height:42px;margin-bottom:14px}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--paper);border-radius:8px;
+  padding:7px 12px;font-size:.88rem;cursor:grab;user-select:none}
+.chip:active{cursor:grabbing}
+.chip.ok{background:rgba(17,141,119,.14);border-color:var(--mint);color:#0B5F50}
+.chip.no{background:rgba(224,75,47,.12);border-color:var(--red);color:#8E2A17}
+.chip .x{border:0;background:rgba(0,0,0,.12);color:inherit;border-radius:50%;width:18px;height:18px;font-size:.7rem;cursor:pointer;display:grid;place-items:center;padding:0;line-height:1}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px}
+.bin{border:2px dashed var(--line);border-radius:12px;background:var(--board);padding:13px;min-height:120px}
+.bin.over{border-color:var(--hot);background:rgba(168,50,125,.06)}
+.bin h4{font-size:.95rem;margin-bottom:3px}
+.bin .hint{font-size:.76rem;color:var(--ink3);margin-bottom:10px}
+.bin .items{display:flex;gap:7px;flex-wrap:wrap}
+
+/* ---- flowchart ---- */
+.fcwrap{display:grid;grid-template-columns:auto 1fr;gap:18px}
+@media (max-width:700px){.fcwrap{grid-template-columns:1fr}}
+.fcpal{display:flex;flex-direction:column;gap:8px}
+.fcpal button{border:1px solid var(--line);background:var(--board);border-radius:9px;padding:8px 11px;font-size:.82rem;cursor:pointer;text-align:left;display:flex;gap:9px;align-items:center}
+.fcpal button:hover{border-color:var(--hot)}
+.fcpal svg{flex:0 0 auto}
+.fccanvas{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px;overflow-x:auto;min-height:220px}
+.fccanvas svg{display:block;margin:0 auto;height:auto;max-width:100%}
+.fcslot{cursor:pointer}
+.fcslot:hover rect,.fcslot:hover polygon,.fcslot:hover ellipse{stroke:var(--hot);stroke-width:3}
+
+/* ---- steps / cards ---- */
+.steps{counter-reset:s;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;position:relative;padding:0 0 12px 38px;font-size:.95rem;color:var(--ink2)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--hot);color:#fff;
+  display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:.78rem;font-weight:700}
+.steps li b{color:var(--ink)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-left:4px solid var(--accent,var(--hot));border-radius:12px;padding:14px 16px;background:var(--board)}
+.card h4{font-size:1rem;margin-bottom:5px}
+.card p{margin:0;font-size:.9rem;color:var(--ink2)}
+.ref{display:grid;gap:7px}
+.refrow{display:flex;gap:9px;align-items:flex-start;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line)}
+.refrow:last-child{border:0}
+.refrow .lv{font-family:"JetBrains Mono",monospace;font-size:.76rem;color:var(--hot);min-width:3.4em;font-weight:700}
+
+/* ---- test ---- */
+.qpart{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--hot);font-weight:700;letter-spacing:.04em}
+.qtext{font-family:"Space Grotesk",sans-serif;font-size:1.14rem;line-height:1.4;margin:8px 0 14px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;border:1px solid var(--line);background:var(--board);
+  border-radius:10px;padding:11px 14px;font-size:.95rem;cursor:pointer;color:var(--ink);line-height:1.45}
+.opt:hover:not(:disabled){border-color:var(--hot);background:rgba(168,50,125,.04)}
+.opt .k{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--ink3);flex:0 0 auto}
+.opt.right{background:rgba(17,141,119,.12);border-color:var(--mint)}
+.opt.right .k{color:#0B5F50}
+.opt.wrong{background:rgba(224,75,47,.1);border-color:var(--red)}
+.opt.wrong .k{color:#8E2A17}
+.opt:disabled{cursor:default;opacity:1}
+.expl{margin-top:14px;padding:13px 16px;border-radius:10px;background:var(--paper);border-left:4px solid var(--violet);font-size:.93rem}
+.expl b{font-family:"Space Grotesk",sans-serif}
+.brow{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 13px;background:var(--board);font-size:.9rem}
+.brow .bar{flex:1 1 60px;height:7px;background:var(--lowbg);border-radius:999px;overflow:hidden;margin:0 10px}
+.brow .bar i{display:block;height:100%;background:var(--hot)}
+.rev{border:1px solid var(--line);border-radius:12px;background:var(--board);padding:14px 17px;margin-bottom:10px}
+.rev .qq{font-family:"Space Grotesk",sans-serif;font-weight:600;margin-bottom:7px}
+.rev .ln2{font-size:.9rem;color:var(--ink2)}
+footer{margin-top:54px;border-top:1px solid var(--line);padding:26px 0 56px;color:var(--ink3);font-size:.86rem}
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <a class="home" href="https://enoete.github.io/compsciu1_hub/">← Unit 1 hub</a>
+  <a href="#machine">Machine</a>
+  <a href="#process">Method</a>
+  <a href="#algorithms">Algorithms</a>
+  <a href="#flow">Flowcharts</a>
+  <a href="#control">Loops</a>
+  <a href="#trace">Trace tables</a>
+  <a href="#bugs">Bugs</a>
+  <a href="#reqs">Requirements</a>
+  <a href="#test">Unit test</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">TOPIC 09 · SOFTWARE DEVELOPMENT</div>
+  <h1>Problem solving with computers</h1>
+  <p class="lede">A computer will do exactly what you tell it, at enormous speed, including the wrong thing. This topic
+  is about getting your instructions precise enough that the right thing happens — and the fastest way to learn that is
+  to write some and watch them run. The machine below is real. Press Run.</p>
+
+  <div class="panel" style="margin-top:24px" id="machine">
+    <div class="tabs" id="mSel"></div>
+    <p class="sub" id="mStory" style="margin-bottom:14px"></p>
+    <div class="two" style="gap:18px">
+      <div>
+        <textarea class="edit" id="mCode" spellcheck="false" aria-label="Pseudocode editor"></textarea>
+        <div class="inprow" style="margin-top:10px">
+          <span class="mono" style="font-size:.8rem;color:var(--ink2)">READ values:</span>
+          <input id="mIn" spellcheck="false" aria-label="Input values, comma separated">
+          <span style="font-size:.78rem;color:var(--ink3)">used in order by each READ</span>
+        </div>
+        <div class="btnrow">
+          <button class="btn accent" id="mRun">▶ Run</button>
+          <button class="btn ghost" id="mStep">Step</button>
+          <button class="btn ghost" id="mReset">Reset</button>
+          <label style="font-size:.84rem;color:var(--ink2);display:flex;align-items:center;gap:7px">Speed
+            <input type="range" id="mSpeed" min="1" max="5" value="3" style="width:80px"></label>
+        </div>
+      </div>
+      <div>
+        <div class="code" id="mLines" style="min-height:140px"></div>
+        <p class="mono" style="font-size:.78rem;color:var(--ink2);margin:12px 0 6px">VARIABLES</p>
+        <div class="vars" id="mVars"></div>
+        <p class="mono" style="font-size:.78rem;color:var(--ink2);margin:12px 0 6px">OUTPUT</p>
+        <div class="screen" id="mOut"></div>
+      </div>
+    </div>
+    <div class="feedback" id="mFb"></div>
+    <details style="margin-top:14px">
+      <summary style="cursor:pointer;font-size:.9rem;font-weight:600;color:var(--hot)">What this machine understands</summary>
+      <div class="scroll" style="margin-top:10px"><table class="tt"><thead><tr><th class="l">You write</th><th class="l">It does</th></tr></thead><tbody>
+        <tr><td class="l">DECLARE x AS INTEGER</td><td class="l">Creates a variable (FLOAT and STRING also work)</td></tr>
+        <tr><td class="l">x ← 5  or  x &lt;- 5</td><td class="l">Assignment — puts a value in a variable</td></tr>
+        <tr><td class="l">READ x</td><td class="l">Takes the next value from your READ list</td></tr>
+        <tr><td class="l">WRITE "Total:", x</td><td class="l">Prints to the screen</td></tr>
+        <tr><td class="l">IF c THEN … ELSE … ENDIF</td><td class="l">Selection</td></tr>
+        <tr><td class="l">WHILE c DO … ENDWHILE</td><td class="l">Loop while the condition holds</td></tr>
+        <tr><td class="l">FOR i = 1 TO 10 DO … ENDFOR</td><td class="l">Counted loop</td></tr>
+        <tr><td class="l">REPEAT … UNTIL c</td><td class="l">Loop that always runs at least once</td></tr>
+        <tr><td class="l">+ − * / MOD DIV</td><td class="l">Arithmetic</td></tr>
+        <tr><td class="l">= &lt;&gt; &lt; &gt; &lt;= &gt;= AND OR NOT</td><td class="l">Conditions</td></tr>
+        <tr><td class="l">// anything</td><td class="l">A comment — ignored</td></tr>
+      </tbody></table></div>
+    </details>
+  </div>
+
+  <div class="note win"><b>This is the same pseudocode your exam uses.</b> Nothing here is a special teaching language —
+  it is the structured English CAPE expects, and the machine is strict about it in exactly the way a real compiler would
+  be. If it runs here, it will earn marks on paper.</div>
+</div></header>
+
+<section id="process"><div class="wrap">
+  <h2>The method: six steps, in order</h2>
+  <p class="sub">Every piece of software you have ever used went through these six. Skip one — especially the first —
+  and you build something beautiful that solves the wrong problem.</p>
+
+  <div class="analogy">
+    <h4>Nobody builds a house by starting with the roof</h4>
+    <p>You agree what the house is for. You survey the land. You look at a few designs. You pick one you can afford.
+    You build it. Then somebody inspects it before anyone moves in. Software is the same six moves, and the expensive
+    mistakes happen in exactly the same place: a house built from a vague brief is still a house, just not the one
+    anybody wanted.</p>
+  </div>
+
+  <div class="panel">
+    <div class="tabs" id="pSel"></div>
+    <div id="pBody"></div>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Step-wise refinement — build it yourself</h3>
+    <p style="font-size:.93rem;color:var(--ink2)">Refinement means starting vague and getting more precise until a
+    computer could follow it. Below is a task written at level 1. Break each step down one more level by dragging the
+    detail steps under the right heading.</p>
+    <div class="tabs" id="rSel" style="margin-top:12px"></div>
+    <p class="mono" style="font-size:.84rem;color:var(--hot);margin:0 0 12px" id="rGoal"></p>
+    <div class="pool" id="rPool"></div>
+    <div class="bins" id="rBins"></div>
+    <div class="btnrow">
+      <button class="btn accent" id="rCheck">Check my refinement</button>
+      <button class="btn ghost" id="rReset">Reset</button>
+    </div>
+    <div class="feedback" id="rFb"></div>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Spot the ambiguity</h3>
+    <p style="font-size:.93rem;color:var(--ink2)">An algorithm must have <b>only one possible interpretation</b>. Each
+    instruction below is ambiguous. Click the word or phrase that a computer could not act on.</p>
+    <div id="aBody" style="margin-top:14px"></div>
+    <div class="feedback" id="aFb"></div>
+    <div class="btnrow"><button class="btn ghost" id="aNext">Next instruction</button></div>
+  </div>
+
+  <div class="two">
+    <div class="card" style="--accent:var(--mint)"><h4>Cohesion — high is good</h4>
+      <p>Each module does <b>one job well</b>. A module called <span class="mono">calculateTax</span> that also prints
+      receipts and emails the customer has low cohesion, and you will regret it.</p></div>
+    <div class="card" style="--accent:var(--cyan)"><h4>Coupling — low is good</h4>
+      <p>Modules should depend on each other as <b>little</b> as possible. High coupling means changing one thing
+      breaks three others. Remember it as: <em>high cohesion, low coupling.</em></p></div>
+  </div>
+</div></section>
+
+<section id="algorithms"><div class="wrap">
+  <h2>What makes it an algorithm</h2>
+  <p class="sub">Four properties. Miss any one and what you have written is a suggestion, not an algorithm.</p>
+
+  <div class="grid3">
+    <div class="card" style="--accent:var(--hot)"><h4>Precise</h4><p>Exact instructions. "Add 15% tax", not "add some tax".</p></div>
+    <div class="card" style="--accent:var(--violet)"><h4>Unambiguous</h4><p>Only one possible reading. No "a bit", no "soon", no "the good one".</p></div>
+    <div class="card" style="--accent:var(--mint)"><h4>Finite</h4><p>It stops. A loop with no exit is not an algorithm, it is a hang.</p></div>
+    <div class="card" style="--accent:var(--amber)"><h4>Logical sequence</h4><p>Steps in an order that makes sense. You cannot serve the tea before boiling the water.</p></div>
+  </div>
+
+  <div class="note warn" style="margin-top:18px"><b>The four sections every written algorithm needs.</b>
+  <b>Header</b> (its name) → <b>Variable declaration</b> (what it will use) → <b>Program body</b> (the steps) →
+  <b>Terminator</b> (an end statement). Markers look for all four. Losing a mark for a missing <span class="mono">STOP</span>
+  is the cheapest mark you will ever throw away.</div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Three ways to write the same algorithm</h3>
+    <p style="font-size:.93rem;color:var(--ink2);margin-bottom:12px">Same logic, three notations. Exams ask for all
+    three, so get used to sliding between them.</p>
+    <div class="tabs" id="wSel"></div>
+    <div id="wBody"></div>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Your turn — six to write</h3>
+    <p style="font-size:.93rem;color:var(--ink2)">Each one loads into the machine at the top. Write it, run it, and the
+    page checks your output against the expected answers for several test inputs — so you find out whether it
+    <em>works</em>, not just whether it looks right.</p>
+    <div class="tabs" id="xSel" style="margin-top:12px"></div>
+    <div id="xBody"></div>
+  </div>
+</div></section>
+
+<section id="flow"><div class="wrap">
+  <h2>Flowcharts</h2>
+  <p class="sub">The same algorithm drawn instead of written. Each shape means one specific thing, and using the wrong
+  shape costs marks even when the logic is right.</p>
+
+  <div class="panel">
+    <h3 style="margin-bottom:10px">The symbols</h3>
+    <div class="scroll"><div id="fSyms"></div></div>
+  </div>
+
+  <div class="analogy">
+    <h4>Shapes are a language, not decoration</h4>
+    <p>A diamond does not mean "important step". It means <b>a question with exactly two ways out</b>. If your diamond
+    has one arrow leaving it, it should have been a rectangle. If your rectangle has two, it should have been a diamond.
+    That single rule catches most flowchart mistakes before a marker does.</p>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Build the flowchart</h3>
+    <p style="font-size:.93rem;color:var(--ink2)">Read the algorithm, then click each empty slot and choose the shape
+    that belongs there.</p>
+    <div class="tabs" id="cSel" style="margin-top:12px"></div>
+    <div class="code" id="cCode" style="margin-bottom:14px"></div>
+    <div class="fcwrap">
+      <div class="fcpal" id="cPal"></div>
+      <div class="fccanvas" id="cCanvas"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn accent" id="cCheck">Check my flowchart</button>
+      <button class="btn ghost" id="cClear">Clear</button>
+    </div>
+    <div class="feedback" id="cFb"></div>
+  </div>
+</div></section>
+
+<section id="control"><div class="wrap">
+  <h2>Choices and loops</h2>
+  <p class="sub">Three building blocks make every program ever written: do things in order, choose between things,
+  repeat things. You have the first one already. Here are the other two.</p>
+
+  <div class="analogy">
+    <h4>Which loop? Ask one question</h4>
+    <p><b>Do I know how many times before I start?</b> If yes — ten items, five students, four bits — use a
+    <b>FOR</b> loop. If no — until the user types -1, until the password is right, until the queue is empty — use a
+    <b>WHILE</b>. And if the thing must happen at least once before you can even test the condition, like asking for a
+    password, that is <b>REPEAT UNTIL</b>.</p>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Loop lab</h3>
+    <p style="font-size:.93rem;color:var(--ink2)">The same job written three ways. Run each and watch the counter —
+    then look at what happens when the input makes the loop body run zero times.</p>
+    <div class="tabs" id="lSel" style="margin-top:12px"></div>
+    <div class="two">
+      <div><div class="code" id="lCode"></div>
+        <div class="btnrow"><button class="btn accent" id="lRun">▶ Run it</button>
+          <span class="mono" style="font-size:.82rem;color:var(--ink2)" id="lNote"></span></div></div>
+      <div><p class="mono" style="font-size:.78rem;color:var(--ink2);margin:0 0 6px">OUTPUT</p>
+        <div class="screen" id="lOut"></div>
+        <div class="feedback show good" id="lFb" style="margin-top:12px"></div></div>
+    </div>
+  </div>
+
+  <div class="note real"><b>The zero-iteration trap.</b> A WHILE loop can run <b>no times at all</b> if its condition
+  starts false. A REPEAT UNTIL always runs <b>at least once</b>, because it tests at the bottom. Exams love this
+  difference — switch the loop lab to the WHILE version and set the count to 0 to watch it happen.</div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:10px">Writing conditions</h3>
+    <div class="scroll"><table class="tt"><thead><tr><th class="l">In English</th><th class="l">In code</th><th class="l">Watch out</th></tr></thead>
+      <tbody id="condRows"></tbody></table></div>
+  </div>
+</div></section>
+
+<section id="trace"><div class="wrap">
+  <h2>Trace tables</h2>
+  <p class="sub">The single most examined skill in this topic, and the one most people lose marks on. A trace table
+  shows every variable's value after every step. Do it slowly and you cannot get it wrong.</p>
+
+  <div class="analogy">
+    <h4>You are the computer now, and you are very stupid</h4>
+    <p>That is the whole trick. Do not look at the algorithm and work out what it <em>means</em>. Take one line at a
+    time, do exactly what it says, write down what changed, move to the next line. The moment you start skipping ahead
+    because you "can see where this is going", you make the mistake the question was built to catch.</p>
+  </div>
+
+  <div class="panel" style="border-left:4px solid var(--hot)">
+    <h3 style="margin-bottom:10px">The four rules</h3>
+    <ol class="steps">
+      <li><b>One column per variable</b>, plus a column for output. Set them up before you start.</li>
+      <li><b>One row per change.</b> If a line does not change anything, it does not need a row.</li>
+      <li><b>Carry values across.</b> A variable keeps its value until something changes it — do not leave gaps.</li>
+      <li><b>Loops repeat rows.</b> Go round as many times as the loop does, writing a new row each pass. This is where
+        it gets long, and where people start guessing.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Trace table trainer</h3>
+    <p style="font-size:.93rem;color:var(--ink2)">Fill in the blank cells. The page knows the real answer because it
+    actually runs the algorithm — so it can tell you precisely which cell is wrong and why.</p>
+    <div class="tabs" id="tSel" style="margin-top:12px"></div>
+    <div class="two" style="gap:18px">
+      <div><div class="code" id="tCode"></div>
+        <p class="mono" style="font-size:.82rem;color:var(--ink2);margin-top:10px" id="tInput"></p></div>
+      <div class="scroll"><div id="tTable"></div></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn accent" id="tCheck">Check my table</button>
+      <button class="btn ghost" id="tHint">Fill the first blank for me</button>
+      <button class="btn ghost" id="tClear">Clear</button>
+    </div>
+    <div class="feedback" id="tFb"></div>
+  </div>
+</div></section>
+
+<section id="bugs"><div class="wrap">
+  <h2>Bug hunt</h2>
+  <p class="sub">Every algorithm below is <em>nearly</em> right. Each has exactly one bug. Find the line, fix it in the
+  editor, and the page will run your version against the test data to see whether you really fixed it.</p>
+
+  <div class="panel">
+    <div class="tabs" id="bSel"></div>
+    <p class="sub" id="bStory" style="margin-bottom:12px"></p>
+    <div class="two" style="gap:18px">
+      <div>
+        <textarea class="edit" id="bCode" spellcheck="false" style="min-height:230px" aria-label="Buggy pseudocode"></textarea>
+        <div class="btnrow">
+          <button class="btn accent" id="bRun">▶ Test my fix</button>
+          <button class="btn ghost" id="bRestore">Put the bug back</button>
+          <button class="btn ghost" id="bHint">Hint</button>
+        </div>
+      </div>
+      <div>
+        <p class="mono" style="font-size:.78rem;color:var(--ink2);margin:0 0 6px">TEST RESULTS</p>
+        <div class="scroll"><div id="bResults"></div></div>
+      </div>
+    </div>
+    <div class="feedback" id="bFb"></div>
+  </div>
+
+  <div class="note win"><b>This is what testing actually is.</b> You just ran the same program against several sets of
+  data, including the awkward ones, and compared what came out with what should have. Do that deliberately and write it
+  down, and you have a <b>test plan</b> — which is the next thing exams ask for.</div>
+
+  <div class="panel">
+    <h3 style="margin-bottom:4px">Normal, boundary, abnormal</h3>
+    <p style="font-size:.93rem;color:var(--ink2)">For a grade checker that accepts marks from 0 to 100, drag each piece
+    of test data into the right category.</p>
+    <div class="pool" id="dPool" style="margin-top:12px"></div>
+    <div class="bins" id="dBins"></div>
+    <div class="btnrow">
+      <button class="btn accent" id="dCheck">Check my sorting</button>
+      <button class="btn ghost" id="dReset">Reset</button>
+    </div>
+    <div class="feedback" id="dFb"></div>
+  </div>
+</div></section>
+
+<section id="reqs"><div class="wrap">
+  <h2>Requirements</h2>
+  <p class="sub">Before anyone writes a line of code, somebody has to say what the system must do and how well it must
+  do it. Those are two different lists, and mixing them up is a guaranteed lost mark.</p>
+
+  <div class="analogy">
+    <h4>Ordering food</h4>
+    <p>"I want a chicken roti" is <b>functional</b> — it is the thing itself. "I want it in under fifteen minutes, still
+    hot, and not swimming in pepper" is <b>non-functional</b> — it is how well the thing is delivered. Both matter. You
+    would send back a cold roti that arrived in an hour, even though it was technically the right order.</p>
+  </div>
+
+  <div class="panel">
+    <p style="font-size:.93rem;color:var(--ink2);margin-top:0">Drag each requirement into the right bin. Some are
+    trickier than they look.</p>
+    <div class="pool" id="qPool"></div>
+    <div class="bins" id="qBins"></div>
+    <div class="btnrow">
+      <button class="btn accent" id="qCheck">Check my sorting</button>
+      <button class="btn ghost" id="qReset">Reset</button>
+    </div>
+    <div class="feedback" id="qFb"></div>
+  </div>
+
+  <div class="note warn"><b>The one-second test.</b> Does the sentence describe a <b>thing the system does</b> —
+  create, search, calculate, display, send? Functional. Does it describe <b>how well</b> — fast, secure, reliable,
+  available, easy, works-on-X? Non-functional. Verbs versus adjectives.</div>
+</div></section>
+
+<section id="test"><div class="wrap">
+  <h2>Unit test</h2>
+  <p class="sub">Forty questions. Nothing is saved, nothing is sent, nobody sees your score but you. Every answer is
+  explained, and the breakdown at the end tells you which section to go back and play with.</p>
+
+  <div id="testIntro" class="panel">
+    <h3 style="margin-bottom:10px">What it covers</h3>
+    <ul style="color:var(--ink2);font-size:.96rem;margin:0;padding-left:20px">
+      <li><b>Part A</b> — the problem-solving process and design approaches (8 questions)</li>
+      <li><b>Part B</b> — algorithms and pseudocode (8)</li>
+      <li><b>Part C</b> — flowcharts and symbols (6)</li>
+      <li><b>Part D</b> — selection and iteration (8)</li>
+      <li><b>Part E</b> — trace tables and testing (6)</li>
+      <li><b>Part F</b> — requirements (4)</li>
+    </ul>
+    <p style="font-size:.9rem;color:var(--ink3);margin-top:14px">Several questions give you code to read. Paper beside
+    you beats trying to hold it in your head.</p>
+    <div class="btnrow"><button class="btn accent" id="testStart">Start the test</button></div>
+  </div>
+
+  <div id="testRun" class="hide">
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
+      <span class="mono" id="testPos"></span>
+      <div style="flex:1 1 180px;height:9px;background:var(--lowbg);border-radius:999px;overflow:hidden;min-width:140px">
+        <i id="testMeter" style="display:block;height:100%;background:var(--hot);width:0;transition:width .3s"></i></div>
+      <span class="mono" id="testScore"></span>
+    </div>
+    <div class="panel" id="qcard" style="margin-bottom:0"></div>
+    <div class="btnrow"><button class="btn ghost" id="testQuit">End test early</button></div>
+  </div>
+
+  <div id="testDone" class="hide">
+    <div class="panel" style="text-align:center;padding:32px 22px">
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:4.2rem;font-weight:700;line-height:1" id="doneScore"></div>
+      <div class="mono" style="font-size:1.1rem;color:var(--ink2)" id="doneGrade"></div>
+      <p style="max-width:44ch;margin:16px auto 0;color:var(--ink2)" id="doneMsg"></p>
+      <div style="display:grid;gap:10px;max-width:490px;margin:24px auto 0;text-align:left" id="doneBreak"></div>
+      <div class="btnrow" style="justify-content:center">
+        <button class="btn accent" id="retryWrong">Retry only what I missed</button>
+        <button class="btn ghost" id="retryAll">Start over</button>
+        <button class="btn ghost" id="reviewAll">Review every question</button>
+      </div>
+    </div>
+    <div id="reviewBox"></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  Computer Science Unit 1 · Clarence Fitzroy Bryant College · Topic 9.
+  Built for the classroom — nothing you do on this page is saved or sent anywhere.
+</div></footer>
+
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+var esc=function(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+
+/* ==================================================================
+   THE ENGINE — a real little pseudocode interpreter.
+   Tokenizer -> expression parser -> flat instruction list -> VM.
+   Everything interactive on this page runs through it, so the trace
+   tables and the bug-hunt tests are computed, never hand-written.
+   ================================================================== */
+
+function PErr(msg,line){this.message=msg;this.line=line;}
+PErr.prototype.toString=function(){return this.message;};
+var E=function(m,l){throw new PErr(m,l);};
+
+var WORDOPS={MOD:1,DIV:1,AND:1,OR:1,NOT:1,TRUE:1,FALSE:1};
+
+function tok(src,ln){
+  var out=[],i=0,c,s,q,two;
+  while(i<src.length){
+    c=src[i];
+    if(c===' '||c==='\t'){i++;continue;}
+    if(c==='/'&&src[i+1]==='/')break;
+    if(c==='"'||c==="'"){q=c;s='';i++;while(i<src.length&&src[i]!==q){s+=src[i++];}
+      if(i>=src.length)E('a quote mark is never closed',ln);
+      i++;out.push({t:'str',v:s});continue;}
+    if(/[0-9]/.test(c)||(c==='.'&&/[0-9]/.test(src[i+1]||''))){s='';
+      while(i<src.length&&/[0-9.]/.test(src[i]))s+=src[i++];
+      out.push({t:'num',v:parseFloat(s)});continue;}
+    if(/[A-Za-z_]/.test(c)){s='';while(i<src.length&&/[A-Za-z0-9_]/.test(src[i]))s+=src[i++];
+      var U=s.toUpperCase();
+      if(WORDOPS[U])out.push({t:'op',v:U});else out.push({t:'id',v:s});
+      continue;}
+    two=src.substr(i,2);
+    if(two==='<-'||two===':='){out.push({t:'op',v:'<-'});i+=2;continue;}
+    if(two==='<='||two==='>='||two==='<>'){out.push({t:'op',v:two});i+=2;continue;}
+    if(two==='!='||two==='=='){out.push({t:'op',v:two==='!='?'<>':'='});i+=2;continue;}
+    if(c==='←'){out.push({t:'op',v:'<-'});i++;continue;}
+    if(c==='≠'){out.push({t:'op',v:'<>'});i++;continue;}
+    if(c==='≤'){out.push({t:'op',v:'<='});i++;continue;}
+    if(c==='≥'){out.push({t:'op',v:'>='});i++;continue;}
+    if('+-*/()=<>,^'.indexOf(c)>=0){out.push({t:'op',v:c});i++;continue;}
+    E('I do not know what to do with the character "'+c+'"',ln);
+  }
+  return out;
+}
+
+/* expression parser — precedence climbing */
+function parseExpr(ts,ln){
+  var p={ts:ts,i:0,ln:ln};
+  if(!ts.length)E('an expression is missing here',ln);
+  var e=pBin(p,1);
+  if(p.i<p.ts.length)E('I got stuck at "'+p.ts[p.i].v+'" — check your brackets and operators',ln);
+  return e;
+}
+var PREC={'OR':1,'AND':2,'=':4,'<>':4,'<':4,'>':4,'<=':4,'>=':4,'+':5,'-':5,'*':6,'/':6,'MOD':6,'DIV':6,'^':8};
+function peek(p){return p.i<p.ts.length?p.ts[p.i]:null;}
+function pBin(p,min){
+  var left=pUnary(p),t,prec,right;
+  while((t=peek(p))&&t.t==='op'&&PREC[t.v]&&PREC[t.v]>=min){
+    prec=PREC[t.v];p.i++;
+    right=pBin(p,t.v==='^'?prec:prec+1);
+    left={k:'bin',o:t.v,l:left,r:right};
+  }
+  return left;
+}
+function pUnary(p){
+  var t=peek(p);
+  if(t&&t.t==='op'&&(t.v==='NOT'||t.v==='-')){p.i++;return {k:'un',o:t.v,e:pUnary(p)};}
+  return pAtom(p);
+}
+function pAtom(p){
+  var t=peek(p);
+  if(!t)E('the expression stops before it is finished',p.ln);
+  if(t.t==='num'){p.i++;return {k:'lit',v:t.v};}
+  if(t.t==='str'){p.i++;return {k:'lit',v:t.v};}
+  if(t.t==='id'){p.i++;return {k:'var',n:t.v};}
+  if(t.t==='op'&&t.v==='TRUE'){p.i++;return {k:'lit',v:true};}
+  if(t.t==='op'&&t.v==='FALSE'){p.i++;return {k:'lit',v:false};}
+  if(t.t==='op'&&t.v==='('){p.i++;var e=pBin(p,1);
+    var n=peek(p);if(!n||n.v!==')')E('a bracket "(" is never closed',p.ln);p.i++;return e;}
+  E('"'+t.v+'" cannot start an expression',p.ln);
+}
+
+/* evaluation */
+function num(v,ln,what){
+  if(typeof v==='number')return v;
+  if(typeof v==='boolean')return v?1:0;
+  var n=parseFloat(v);
+  if(isNaN(n))E('"'+v+'" is text, so you cannot do '+what+' with it',ln);
+  return n;
+}
+function ev(n,vm,ln){
+  var a,b;
+  switch(n.k){
+    case 'lit':return n.v;
+    case 'var':
+      if(!(n.n in vm.vars)||vm.vars[n.n]===null)
+        E('"'+n.n+'" has no value yet. Nothing has READ into it or assigned to it.',ln);
+      return vm.vars[n.n];
+    case 'un':
+      if(n.o==='-')return -num(ev(n.e,vm,ln),ln,'arithmetic');
+      return !truthy(ev(n.e,vm,ln));
+    case 'bin':
+      if(n.o==='AND')return truthy(ev(n.l,vm,ln))&&truthy(ev(n.r,vm,ln));
+      if(n.o==='OR')return truthy(ev(n.l,vm,ln))||truthy(ev(n.r,vm,ln));
+      a=ev(n.l,vm,ln);b=ev(n.r,vm,ln);
+      switch(n.o){
+        case '+':
+          if(typeof a==='string'||typeof b==='string')return String(fmt(a))+String(fmt(b));
+          return num(a,ln,'+')+num(b,ln,'+');
+        case '-':return num(a,ln,'-')-num(b,ln,'-');
+        case '*':return num(a,ln,'*')*num(b,ln,'*');
+        case '/':
+          if(num(b,ln,'/')===0)E('division by zero — the program tried to divide by 0',ln);
+          return num(a,ln,'/')/num(b,ln,'/');
+        case 'DIV':
+          if(num(b,ln,'DIV')===0)E('division by zero in DIV',ln);
+          return Math.trunc(num(a,ln,'DIV')/num(b,ln,'DIV'));
+        case 'MOD':
+          if(num(b,ln,'MOD')===0)E('division by zero in MOD',ln);
+          return num(a,ln,'MOD')%num(b,ln,'MOD');
+        case '^':return Math.pow(num(a,ln,'^'),num(b,ln,'^'));
+        case '=':return eqv(a,b);
+        case '<>':return !eqv(a,b);
+        case '<':return cmp(a,b,ln)<0;
+        case '>':return cmp(a,b,ln)>0;
+        case '<=':return cmp(a,b,ln)<=0;
+        case '>=':return cmp(a,b,ln)>=0;
+      }
+  }
+  E('I could not work that expression out',ln);
+}
+function eqv(a,b){
+  if(typeof a==='string'||typeof b==='string'){
+    if(typeof a==='number'||typeof b==='number'){var x=parseFloat(a),y=parseFloat(b);if(!isNaN(x)&&!isNaN(y))return x===y;}
+    return String(a).toUpperCase()===String(b).toUpperCase();
+  }
+  return a===b;
+}
+function cmp(a,b,ln){
+  if(typeof a==='string'&&typeof b==='string')return a<b?-1:(a>b?1:0);
+  var x=num(a,ln,'a comparison'),y=num(b,ln,'a comparison');
+  return x<y?-1:(x>y?1:0);
+}
+function truthy(v){
+  if(typeof v==='boolean')return v;
+  if(typeof v==='number')return v!==0;
+  return String(v).toUpperCase()==='TRUE';
+}
+function fmt(v){
+  if(typeof v==='boolean')return v?'TRUE':'FALSE';
+  if(typeof v==='number'){
+    if(!isFinite(v))return String(v);
+    if(Math.abs(v-Math.round(v))<1e-9)return String(Math.round(v));
+    return String(Math.round(v*10000)/10000);
+  }
+  return String(v);
+}
+
+/* ---------------- compiler: source lines -> flat instruction list ------- */
+function stripC(s){
+  var o='',q=null,i,c;
+  for(i=0;i<s.length;i++){c=s[i];
+    if(q){o+=c;if(c===q)q=null;continue;}
+    if(c==='"'||c==="'"){q=c;o+=c;continue;}
+    if(c==='/'&&s[i+1]==='/')break;
+    o+=c;}
+  return o;
+}
+function splitTop(s,ch){
+  var out=[],cur='',d=0,q=null,i,c;
+  for(i=0;i<s.length;i++){c=s[i];
+    if(q){cur+=c;if(c===q)q=null;continue;}
+    if(c==='"'||c==="'"){q=c;cur+=c;continue;}
+    if(c==='(')d++;if(c===')')d--;
+    if(c===ch&&d===0){out.push(cur);cur='';continue;}
+    cur+=c;}
+  out.push(cur);
+  return out.map(function(x){return x.trim();}).filter(function(x){return x!=='';});
+}
+
+function compile(src){
+  var raw=String(src).replace(/\r/g,'').split('\n');
+  var code=[],stack=[],order=[],i;
+  function note(n){if(order.indexOf(n)<0)order.push(n);}
+  function at(){return code.length;}
+  function emit(o){code.push(o);return code.length-1;}
+
+  function simple(s,ln){
+    var U=s.toUpperCase(),m;
+    if(/^(START|BEGIN)$/.test(U))return true;
+    if(/^(STOP|END|END\s+PROGRAM|TERMINATE)$/.test(U)){emit({op:'halt',ln:ln});return true;}
+    if((m=s.match(/^DECLARE\s+(.+)$/i))){
+      var body=m[1].split(':')[0];
+      var ns=splitTop(body,',').map(function(x){return x.trim();});
+      ns.forEach(function(n){
+        if(!/^[A-Za-z_]\w*$/.test(n))E('"'+n+'" is not a valid variable name',ln);
+        note(n);});
+      emit({op:'decl',ns:ns,ln:ln});return true;}
+    if((m=s.match(/^(?:READ|INPUT|GET)\s+(.+)$/i))){
+      splitTop(m[1],',').forEach(function(n){
+        n=n.trim();
+        if(!/^[A-Za-z_]\w*$/.test(n))E('READ needs a variable name, not "'+n+'"',ln);
+        note(n);emit({op:'read',n:n,ln:ln});});
+      return true;}
+    if((m=s.match(/^(?:WRITE|PRINT|OUTPUT|DISPLAY)\b\s*(.*)$/i))){
+      var parts=splitTop(m[1],',');
+      emit({op:'write',es:parts.map(function(p){return parseExpr(tok(p,ln),ln);}),ln:ln});
+      return true;}
+    var ix=idxTop(s,'<-');
+    if(ix<0)ix=idxArrow(s);
+    if(ix>=0){
+      var nm=s.slice(0,ix).trim(),rhs=s.slice(ix+(s.substr(ix,2)==='<-'?2:1)).trim();
+      if(!/^[A-Za-z_]\w*$/.test(nm))E('"'+nm+'" is not a valid variable name on the left of the arrow',ln);
+      note(nm);
+      emit({op:'set',n:nm,e:parseExpr(tok(rhs,ln),ln),ln:ln});
+      return true;}
+    if((m=s.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/))&&!/^(IF|WHILE|UNTIL|FOR)$/i.test(m[1])){
+      note(m[1]);
+      emit({op:'set',n:m[1],e:parseExpr(tok(m[2],ln),ln),ln:ln});
+      return true;}
+    return false;
+  }
+  function idxTop(s,pat){
+    var d=0,q=null,i,c;
+    for(i=0;i<s.length;i++){c=s[i];
+      if(q){if(c===q)q=null;continue;}
+      if(c==='"'||c==="'"){q=c;continue;}
+      if(c==='(')d++;if(c===')')d--;
+      if(d===0&&s.substr(i,pat.length)===pat)return i;}
+    return -1;
+  }
+  function idxArrow(s){
+    var d=0,q=null,i,c;
+    for(i=0;i<s.length;i++){c=s[i];
+      if(q){if(c===q)q=null;continue;}
+      if(c==='"'||c==="'"){q=c;continue;}
+      if(c==='(')d++;if(c===')')d--;
+      if(d===0&&c==='←')return i;}
+    return -1;
+  }
+
+  for(var ln=0;ln<raw.length;ln++){
+    var s=stripC(raw[ln]).trim();
+    if(!s)continue;
+    s=s.replace(/^END\s+(IF|WHILE|FOR|CASE)\b/i,'END$1');
+    var U=s.toUpperCase(),m,top;
+
+    if(/^IF\b/.test(U)){
+      var cond=s.replace(/^IF\b/i,'').replace(/\bTHEN\s*$/i,'').trim();
+      if(!cond)E('IF needs a condition after it',ln);
+      var j=emit({op:'jf',e:parseExpr(tok(cond,ln),ln),to:-1,ln:ln});
+      stack.push({t:'if',jf:j,ends:[]});
+      continue;}
+    if(/^ELSE$/.test(U)){
+      top=stack[stack.length-1];
+      if(!top||top.t!=='if')E('ELSE with no IF above it',ln);
+      if(top.hasElse)E('this IF already has an ELSE',ln);
+      top.hasElse=true;
+      var je=emit({op:'jmp',to:-1,ln:ln});
+      top.ends.push(je);
+      code[top.jf].to=at();
+      continue;}
+    if(/^ENDIF$/.test(U)){
+      top=stack.pop();
+      if(!top||top.t!=='if')E('ENDIF with no IF above it',ln);
+      if(!top.hasElse)code[top.jf].to=at();
+      top.ends.forEach(function(k){code[k].to=at();});
+      continue;}
+
+    if(/^WHILE\b/.test(U)){
+      var wc=s.replace(/^WHILE\b/i,'').replace(/\bDO\s*$/i,'').trim();
+      if(!wc)E('WHILE needs a condition after it',ln);
+      var head=at();
+      var wj=emit({op:'jf',e:parseExpr(tok(wc,ln),ln),to:-1,ln:ln});
+      stack.push({t:'while',head:head,jf:wj});
+      continue;}
+    if(/^ENDWHILE$/.test(U)){
+      top=stack.pop();
+      if(!top||top.t!=='while')E('ENDWHILE with no WHILE above it',ln);
+      emit({op:'jmp',to:top.head,ln:ln});
+      code[top.jf].to=at();
+      continue;}
+
+    if(/^REPEAT$/.test(U)){stack.push({t:'repeat',head:at()});continue;}
+    if(/^UNTIL\b/.test(U)){
+      top=stack.pop();
+      if(!top||top.t!=='repeat')E('UNTIL with no REPEAT above it',ln);
+      var uc=s.replace(/^UNTIL\b/i,'').trim();
+      if(!uc)E('UNTIL needs a condition after it',ln);
+      emit({op:'jf',e:parseExpr(tok(uc,ln),ln),to:top.head,ln:ln});
+      continue;}
+
+    if(/^FOR\b/.test(U)){
+      m=s.match(/^FOR\s+([A-Za-z_]\w*)\s*(?:<-|:=|=|←)\s*([\s\S]+?)\s+TO\s+([\s\S]+?)(?:\s+STEP\s+([\s\S]+))?$/i);
+      if(!m)E('I could not read that FOR line. It should look like  FOR i ← 1 TO 10',ln);
+      note(m[1]);
+      emit({op:'forinit',n:m[1],from:parseExpr(tok(m[2],ln),ln),to:parseExpr(tok(m[3],ln),ln),
+            step:m[4]?parseExpr(tok(m[4],ln),ln):{k:'lit',v:1},ln:ln});
+      var fh=at();
+      var ft=emit({op:'fortest',n:m[1],to:-1,ln:ln});
+      stack.push({t:'for',n:m[1],head:fh,test:ft});
+      continue;}
+    if(/^(ENDFOR|NEXT(\s+\w+)?)$/.test(U)){
+      top=stack.pop();
+      if(!top||top.t!=='for')E('ENDFOR with no FOR above it',ln);
+      emit({op:'forstep',n:top.n,to:top.head,ln:ln});
+      code[top.test].to=at();
+      continue;}
+
+    if(/^CASE\b/.test(U)){
+      m=s.match(/^CASE\s+(?:OF\s+)?([\s\S]+?)(?:\s+OF)?$/i);
+      if(!m)E('CASE should look like  CASE grade OF',ln);
+      stack.push({t:'case',sel:m[1].trim(),ends:[],prev:-1});
+      continue;}
+    if(/^ENDCASE$/.test(U)){
+      top=stack.pop();
+      if(!top||top.t!=='case')E('ENDCASE with no CASE above it',ln);
+      if(top.prev>=0)code[top.prev].to=at();
+      top.ends.forEach(function(k){code[k].to=at();});
+      continue;}
+    if(stack.length&&stack[stack.length-1].t==='case'&&s.indexOf(':')>0){
+      top=stack[stack.length-1];
+      var ci=s.indexOf(':'),labs=s.slice(0,ci).trim(),body=s.slice(ci+1).trim();
+      if(top.prev>=0){code[top.prev].to=at();top.prev=-1;}
+      if(!/^OTHERWISE$/i.test(labs)&&!/^ELSE$/i.test(labs)){
+        var exprTxt=splitTop(labs,',').map(function(L){return '('+top.sel+')=('+L+')';}).join(' OR ');
+        top.prev=emit({op:'jf',e:parseExpr(tok(exprTxt,ln),ln),to:-1,ln:ln});
+      }
+      if(body){ if(!simple(body,ln))E('a CASE branch can only hold one simple statement like WRITE or an assignment',ln); }
+      top.ends.push(emit({op:'jmp',to:-1,ln:ln}));
+      continue;}
+
+    if(simple(s,ln))continue;
+    E('I do not recognise this line. Check the reference list under the editor.',ln);
+  }
+  if(stack.length){
+    var o=stack[stack.length-1];
+    E('you opened a '+({'if':'IF','while':'WHILE','for':'FOR','repeat':'REPEAT','case':'CASE'}[o.t])+' and never closed it',raw.length-1);
+  }
+  emit({op:'halt',ln:raw.length-1});
+  return {code:code,order:order,lines:raw};
+}
+
+/* ------------------------------- the virtual machine ------------------- */
+function coerce(s){
+  if(typeof s!=='string')return s;
+  var t=s.trim();
+  if(t==='')return '';
+  if(/^-?\d+(\.\d+)?$/.test(t))return parseFloat(t);
+  if(/^TRUE$/i.test(t))return true;
+  if(/^FALSE$/i.test(t))return false;
+  return t;
+}
+function makeVM(prog,inputs){
+  return {prog:prog,pc:0,vars:{},lim:{},stp:{},out:[],inq:(inputs||[]).map(coerce),
+          steps:0,done:false,err:null,errLine:-1,trace:[],order:prog.order.slice()};
+}
+function stepVM(vm){
+  if(vm.done)return null;
+  if(++vm.steps>60000){
+    vm.err='This has run 60,000 steps without finishing. That is almost certainly an infinite loop — check that something inside the loop actually changes the condition.';
+    vm.errLine=(vm.prog.code[vm.pc]||{}).ln;vm.done=true;return null;}
+  var ins=vm.prog.code[vm.pc];
+  if(!ins){vm.done=true;return null;}
+  var info={ln:ins.ln,changed:[],printed:null},i,v,done,st;
+  try{
+    switch(ins.op){
+      case 'decl':
+        ins.ns.forEach(function(n){if(!(n in vm.vars))vm.vars[n]=null;});
+        vm.pc++;break;
+      case 'set':
+        v=ev(ins.e,vm,ins.ln);
+        if(vm.order.indexOf(ins.n)<0)vm.order.push(ins.n);
+        vm.vars[ins.n]=v;info.changed.push(ins.n);vm.pc++;break;
+      case 'read':
+        if(!vm.inq.length)E('the program asked for another input but the list of values ran out. Add one more value to the input box.',ins.ln);
+        v=vm.inq.shift();
+        if(vm.order.indexOf(ins.n)<0)vm.order.push(ins.n);
+        vm.vars[ins.n]=v;info.changed.push(ins.n);info.read=true;vm.pc++;break;
+      case 'write':
+        var txt='',bit;
+        for(i=0;i<ins.es.length;i++){
+          bit=fmt(ev(ins.es[i],vm,ins.ln));
+          if(i&&!/\s$/.test(txt)&&!/^\s/.test(bit))txt+=' ';
+          txt+=bit;}
+        info.printed=txt;
+        vm.out.push(info.printed);vm.pc++;break;
+      case 'jf':
+        vm.pc=truthy(ev(ins.e,vm,ins.ln))?vm.pc+1:ins.to;break;
+      case 'jmp':vm.pc=ins.to;break;
+      case 'forinit':
+        v=num(ev(ins.from,vm,ins.ln),ins.ln,'a FOR loop');
+        vm.lim[ins.n]=num(ev(ins.to,vm,ins.ln),ins.ln,'a FOR loop');
+        vm.stp[ins.n]=num(ev(ins.step,vm,ins.ln),ins.ln,'a FOR loop');
+        if(vm.stp[ins.n]===0)E('a FOR loop with STEP 0 can never finish',ins.ln);
+        if(vm.order.indexOf(ins.n)<0)vm.order.push(ins.n);
+        vm.vars[ins.n]=v;info.changed.push(ins.n);vm.pc++;break;
+      case 'fortest':
+        st=vm.stp[ins.n];
+        done=st>0?vm.vars[ins.n]>vm.lim[ins.n]:vm.vars[ins.n]<vm.lim[ins.n];
+        vm.pc=done?ins.to:vm.pc+1;break;
+      case 'forstep':
+        vm.vars[ins.n]=vm.vars[ins.n]+vm.stp[ins.n];
+        info.changed.push(ins.n);vm.pc=ins.to;break;
+      case 'halt':vm.done=true;break;
+      default:vm.done=true;
+    }
+  }catch(e){
+    vm.err=(e&&e.message)?e.message:String(e);
+    vm.errLine=(e&&typeof e.line==='number')?e.line:ins.ln;
+    vm.done=true;return null;
+  }
+  if(info.changed.length||info.printed!==null){
+    var snap={};
+    for(var k in vm.vars)if(vm.vars[k]!==null)snap[k]=vm.vars[k];
+    vm.trace.push({ln:ins.ln,vars:snap,changed:info.changed.slice(),out:info.printed});
+  }
+  return info;
+}
+function runVM(vm){while(!vm.done)stepVM(vm);return vm;}
+function runSrc(src,inputs){
+  var prog;
+  try{prog=compile(src);}
+  catch(e){return {ok:false,err:(e&&e.message)||String(e),errLine:(e&&typeof e.line==='number')?e.line:-1,out:[],trace:[],order:[]};}
+  var vm=runVM(makeVM(prog,inputs));
+  return {ok:!vm.err,err:vm.err,errLine:vm.errLine,out:vm.out,trace:vm.trace,
+          order:vm.order,vars:vm.vars,prog:prog,steps:vm.steps};
+}
+
+/* ------------------------------- syntax highlighting ------------------- */
+var KWRE=/\b(DECLARE|READ|INPUT|WRITE|PRINT|OUTPUT|DISPLAY|IF|THEN|ELSE|ENDIF|END IF|WHILE|DO|ENDWHILE|END WHILE|FOR|TO|STEP|ENDFOR|NEXT|REPEAT|UNTIL|CASE|OF|OTHERWISE|ENDCASE|STOP|START|BEGIN|END|MOD|DIV|AND|OR|NOT|TRUE|FALSE|INTEGER|REAL|STRING|CHAR|BOOLEAN)\b/g;
+function hl(line){
+  var s=esc(line),out='',rest=s,m;
+  var ci=rest.indexOf('//');
+  var cm='';
+  if(ci>=0&&(rest.slice(0,ci).split('"').length%2)===1){cm=rest.slice(ci);rest=rest.slice(0,ci);}
+  var parts=rest.split(/(&quot;[^&]*?&quot;|"[^"]*")/g);
+  for(var i=0;i<parts.length;i++){
+    if(i%2===1){out+='<span class="st">'+parts[i]+'</span>';continue;}
+    out+=parts[i].replace(KWRE,'<span class="kw">$1</span>').replace(/\b(\d+(?:\.\d+)?)\b/g,'<span class="nu">$1</span>');
+  }
+  if(cm)out+='<span class="cm">'+cm+'</span>';
+  return out;
+}
+function codeHTML(src,cur,doneTo){
+  var ls=String(src).replace(/\r/g,'').split('\n'),h='';
+  for(var i=0;i<ls.length;i++){
+    var cls='ln'+(i===cur?' cur':'')+(doneTo!=null&&i<doneTo&&i!==cur?' done':'');
+    h+='<div class="'+cls+'"><span class="no">'+(i+1)+'</span><span class="tx">'+(hl(ls[i])||' ')+'</span></div>';
+  }
+  return h;
+}
+
+/* ==================================================================
+   SHARED UI HELPERS
+   ================================================================== */
+function tabs(host,labels,onPick,startAt){
+  host.innerHTML='';
+  labels.forEach(function(L,i){
+    var b=document.createElement('button');
+    b.className='tab';b.type='button';b.textContent=L;
+    b.setAttribute('aria-pressed',String(i===(startAt||0)));
+    b.addEventListener('click',function(){
+      $$('.tab',host).forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');onPick(i);});
+    host.appendChild(b);
+  });
+  onPick(startAt||0);
+}
+function markTabDone(host,i){var t=$$('.tab',host)[i];if(t)t.classList.add('done');}
+function say(el,html,good){
+  el.className='feedback show '+(good?'good':'bad');
+  el.innerHTML=html;
+}
+
+/* drag-and-drop sorter: works with a mouse, a finger, or a keyboard tap */
+function Sorter(cfg){
+  var self=this;
+  this.cfg=cfg;this.place=cfg.items.map(function(){return null;});
+  this.picked=null;this.locked=false;
+  cfg.bins.innerHTML=cfg.binDefs.map(function(b){
+    return '<div class="bin" data-bin="'+b.id+'"><h4>'+esc(b.title)+'</h4>'+
+           '<div class="hint">'+esc(b.hint||'')+'</div><div class="items"></div></div>';
+  }).join('');
+  $$('.bin',cfg.bins).forEach(function(bin){
+    bin.addEventListener('dragover',function(e){e.preventDefault();bin.classList.add('over');});
+    bin.addEventListener('dragleave',function(){bin.classList.remove('over');});
+    bin.addEventListener('drop',function(e){
+      e.preventDefault();bin.classList.remove('over');
+      var id=e.dataTransfer.getData('text/plain');
+      if(id!=='')self.move(parseInt(id,10),bin.getAttribute('data-bin'));});
+    bin.addEventListener('click',function(){
+      if(self.picked!==null){self.move(self.picked,bin.getAttribute('data-bin'));self.picked=null;}});
+  });
+  this.render();
+}
+Sorter.prototype.move=function(i,bin){if(this.locked)return;this.place[i]=bin;this.render();};
+Sorter.prototype.reset=function(){this.place=this.place.map(function(){return null;});this.locked=false;this.picked=null;
+  if(this.cfg.fb)this.cfg.fb.className='feedback';this.render();};
+Sorter.prototype.chip=function(i,inBin){
+  var self=this,c=this.cfg.items[i];
+  var el=document.createElement('span');
+  el.className='chip';el.setAttribute('draggable','true');el.dataset.i=i;
+  el.innerHTML=esc(c.t)+(inBin?' <button class="x" type="button" aria-label="put back">✕</button>':'');
+  if(this.picked===i)el.style.boxShadow='0 0 0 3px rgba(168,50,125,.35)';
+  el.addEventListener('dragstart',function(e){e.dataTransfer.setData('text/plain',String(i));e.dataTransfer.effectAllowed='move';});
+  el.addEventListener('click',function(e){
+    if(self.locked)return;
+    if(e.target.classList.contains('x')){e.stopPropagation();self.move(i,null);return;}
+    /* if another chip is already picked, a click on a chip sitting in a bin must
+       fall through to the bin so the picked chip lands there */
+    if(inBin&&self.picked!==null&&self.picked!==i)return;
+    self.picked=(self.picked===i?null:i);self.render();});
+  return el;
+};
+Sorter.prototype.render=function(){
+  var self=this,cfg=this.cfg;
+  cfg.pool.innerHTML='';
+  $$('.bin .items',cfg.bins).forEach(function(d){d.innerHTML='';});
+  this.place.forEach(function(b,i){
+    var el=self.chip(i,!!b);
+    if(b===null)cfg.pool.appendChild(el);
+    else{var box=$('.bin[data-bin="'+b+'"] .items',cfg.bins);if(box)box.appendChild(el);else cfg.pool.appendChild(el);}
+  });
+  if(!cfg.pool.children.length)cfg.pool.innerHTML='<span style="color:var(--ink3);font-size:.86rem">All placed — press Check.</span>';
+};
+Sorter.prototype.check=function(){
+  var self=this,cfg=this.cfg,right=0,left=0,wrong=[];
+  this.place.forEach(function(b,i){
+    if(b===null){left++;return;}
+    if(b===cfg.items[i].b)right++;else wrong.push(i);
+  });
+  $$('.chip',cfg.bins).forEach(function(el){
+    var i=parseInt(el.dataset.i,10);
+    el.classList.add(self.place[i]===cfg.items[i].b?'ok':'no');
+  });
+  if(left){say(cfg.fb,'<b>'+left+' still in the pool.</b> Place every one, then check.',false);return false;}
+  if(!wrong.length){
+    this.locked=true;
+    say(cfg.fb,'<b>All '+right+' correct.</b> '+(cfg.win||''),true);return true;}
+  say(cfg.fb,'<b>'+right+' right, '+wrong.length+' in the wrong bin.</b><ul style="margin:8px 0 0;padding-left:20px">'+
+    wrong.map(function(i){return '<li><b>'+esc(cfg.items[i].t)+'</b> — '+cfg.items[i].why+'</li>';}).join('')+
+    '</ul>',false);
+  return false;
+};
+
+/* ==================================================================
+   THE MACHINE (hero)
+   ================================================================== */
+var MACH=[
+ {n:'Say hello',story:'The smallest useful program there is: ask, listen, answer. Change the name in the input box and run it again.',
+  inp:'Keisha',
+  src:'DECLARE name\nWRITE "What is your name?"\nREAD name\nWRITE "Hello,", name\nWRITE "Nice to meet you."\nSTOP'},
+ {n:'15% tax',story:'Three variables, two calculations. Try a price of 0. Try a price of 1000000. A computer will not blink at either.',
+  inp:'250',
+  src:'DECLARE price, tax, total\nWRITE "Enter the price:"\nREAD price\ntax <- price * 0.15\ntotal <- price + tax\nWRITE "Tax is $", tax\nWRITE "Total is $", total\nSTOP'},
+ {n:'Pass or fail',story:'Selection. One of the two branches runs, never both. Change the input to 50 exactly and watch which way it goes — that boundary is exam gold.',
+  inp:'49',
+  src:'DECLARE mark\nWRITE "Enter the mark:"\nREAD mark\nIF mark >= 50 THEN\n   WRITE "PASS"\nELSE\n   WRITE "FAIL"\nENDIF\nSTOP'},
+ {n:'Five marks, one average',story:'A FOR loop, because we know it is five before we start. Step through this one slowly and watch total climb.',
+  inp:'12, 18, 9, 20, 16',
+  src:'DECLARE total, count, mark, average\ntotal <- 0\nFOR count <- 1 TO 5\n   READ mark\n   total <- total + mark\nENDFOR\naverage <- total / 5\nWRITE "Total:", total\nWRITE "Average:", average\nSTOP'},
+ {n:'Count until -1',story:'A WHILE loop, because we do NOT know how many numbers are coming. -1 is the sentinel — the value that means "stop", and which is never counted.',
+  inp:'7, 3, 11, 4, -1',
+  src:'DECLARE n, count, total\ncount <- 0\ntotal <- 0\nWRITE "Enter numbers, -1 to finish:"\nREAD n\nWHILE n <> -1 DO\n   count <- count + 1\n   total <- total + n\n   READ n\nENDWHILE\nWRITE "You entered", count, "numbers"\nWRITE "They add up to", total\nSTOP'},
+ {n:'Biggest of three',story:'Nested selection. Three numbers go in, the largest comes out. Give it three equal numbers and see whether it still behaves.',
+  inp:'14, 39, 27',
+  src:'DECLARE a, b, c, biggest\nREAD a\nREAD b\nREAD c\nbiggest <- a\nIF b > biggest THEN\n   biggest <- b\nENDIF\nIF c > biggest THEN\n   biggest <- c\nENDIF\nWRITE "The biggest is", biggest\nSTOP'},
+ {n:'Times table',story:'A FOR loop that builds a whole table. Change the 12 to 20 and run it. That is the moment most people decide loops are worth learning.',
+  inp:'7',
+  src:'DECLARE n, i\nWRITE "Which times table?"\nREAD n\nFOR i <- 1 TO 12\n   WRITE i, "x", n, "=", i * n\nENDFOR\nSTOP'}
+];
+
+function Machine(){
+  var ed=$('#mCode'),inB=$('#mIn'),lines=$('#mLines'),vars=$('#mVars'),out=$('#mOut'),fb=$('#mFb');
+  var story=$('#mStory'),vm=null,timer=null,lastChanged=[];
+  function inputs(){return inB.value.split(/[,\n]/).map(function(s){return s.trim();}).filter(function(s){return s!=='';});}
+  function paint(cur){
+    lines.innerHTML=codeHTML(ed.value,cur==null?-1:cur,null);
+    var cl=$('.ln.cur',lines);
+    if(cl&&cl.scrollIntoView)try{cl.scrollIntoView({block:'nearest'});}catch(e){}
+    vars.innerHTML='';
+    if(vm){
+      vm.order.forEach(function(n){
+        if(!(n in vm.vars))return;
+        var v=vm.vars[n];
+        var d=document.createElement('div');
+        d.className='vbox'+(lastChanged.indexOf(n)>=0?' changed':'');
+        d.innerHTML='<div class="vn">'+esc(n)+'</div><div class="vv">'+(v===null?'<span style="color:var(--ink3)">—</span>':esc(fmt(v)))+'</div>';
+        vars.appendChild(d);});
+      out.innerHTML=vm.out.map(function(o){return esc(o);}).join('\n');
+    }else{vars.innerHTML='<span style="color:var(--ink3);font-size:.86rem">Variables appear here as the program creates them.</span>';out.innerHTML='';}
+  }
+  function start(){
+    var prog;
+    try{prog=compile(ed.value);}
+    catch(e){
+      vm=null;paint(null);
+      say(fb,'<b>Line '+((e.line||0)+1)+' —</b> '+esc(e.message||String(e)),false);
+      lines.innerHTML=codeHTML(ed.value,e.line,null);
+      return false;}
+    vm=makeVM(prog,inputs());lastChanged=[];
+    fb.className='feedback';paint(vm.prog.code[0]?vm.prog.code[0].ln:0);
+    return true;
+  }
+  function one(){
+    if(!vm&&!start())return false;
+    var info=stepVM(vm);
+    lastChanged=info?info.changed:[];
+    if(vm.err){
+      paint(vm.errLine);
+      say(fb,'<b>Line '+((vm.errLine||0)+1)+' stopped it —</b> '+esc(vm.err),false);
+      return false;}
+    if(vm.done){
+      paint(null);
+      say(fb,'<b>Finished.</b> '+vm.steps+' steps, '+vm.out.length+' line'+(vm.out.length===1?'':'s')+' of output, '+
+        vm.order.length+' variable'+(vm.order.length===1?'':'s')+' used.',true);
+      return false;}
+    var nx=vm.prog.code[vm.pc];
+    paint(nx?nx.ln:null);
+    return true;
+  }
+  function stop(){if(timer){clearInterval(timer);timer=null;}$('#mRun').textContent='▶ Run';}
+  $('#mRun').addEventListener('click',function(){
+    if(timer){stop();return;}
+    if(vm&&vm.done)vm=null;
+    if(!vm&&!start())return;
+    $('#mRun').textContent='■ Stop';
+    var delay=[0,620,380,210,110,45][parseInt($('#mSpeed').value,10)]||210;
+    timer=setInterval(function(){if(!one())stop();},delay);
+  });
+  $('#mStep').addEventListener('click',function(){stop();if(vm&&vm.done)vm=null;one();});
+  $('#mReset').addEventListener('click',function(){stop();vm=null;lastChanged=[];fb.className='feedback';paint(null);});
+  ed.addEventListener('input',function(){if(!timer){vm=null;paint(null);}});
+  tabs($('#mSel'),MACH.map(function(m){return m.n;}),function(i){
+    stop();vm=null;lastChanged=[];fb.className='feedback';
+    ed.value=MACH[i].src;inB.value=MACH[i].inp;story.textContent=MACH[i].story;paint(null);
+  });
+  window.__loadMachine=function(src,inp){
+    stop();vm=null;ed.value=src;if(inp!=null)inB.value=inp;fb.className='feedback';paint(null);
+    $$('.tab',$('#mSel')).forEach(function(x){x.setAttribute('aria-pressed','false');});
+    var m=$('#machine');if(m&&m.scrollIntoView)try{m.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}
+  };
+}
+
+/* ==================================================================
+   THE METHOD
+   ================================================================== */
+var PROC=[
+ {n:'1 · Define',t:'Define the problem',
+  d:'Write down, in one sentence, what the system must do — and just as importantly, what it must <em>not</em> do. Who uses it? What goes in? What must come out?',
+  ex:'"The canteen needs a till that totals an order, applies the student discount, and prints a receipt." Not "the canteen needs a computer system."',
+  bad:'Skip this and you build something excellent that solves a problem nobody had. This is the most expensive mistake in software, and it is always made on day one.'},
+ {n:'2 · Analyse',t:'Analyse the problem',
+  d:'Break it into inputs, processing and outputs — the IPO model. Work out what data you need, what the rules are, and what constraints you are under.',
+  ex:'Inputs: item prices, quantity, student card Y/N. Processing: subtotal, 10% off if student, add nothing for tax. Outputs: a printed total and change due.',
+  bad:'If you cannot list the inputs and outputs, you do not understand the problem yet. Writing code at this point is guessing with extra steps.'},
+ {n:'3 · Propose',t:'Propose possible solutions',
+  d:'There is always more than one way. List two or three and compare them honestly on cost, speed, difficulty and how well they actually fit.',
+  ex:'A touchscreen till, a phone app, or a barcode scanner with a cash drawer. Each is fine; each suits a different canteen.',
+  bad:'Jumping on the first idea that works is how you end up maintaining it for five years.'},
+ {n:'4 · Evaluate',t:'Evaluate and choose',
+  d:'Pick one, and be able to say why. Weigh it against the constraints you found in step 2 — budget, time, the skill of the people who will use it.',
+  ex:'The barcode scanner wins: fastest at the counter, and the canteen already prints barcodes on the hot-meal tickets.',
+  bad:'"We chose it because it is the newest" is not an evaluation. Neither is "my cousin knows that language."'},
+ {n:'5 · Develop',t:'Develop the algorithm',
+  d:'Now, and only now, write the steps. Narrative first if it helps, then pseudocode or a flowchart. This is where top-down design and step-wise refinement live.',
+  ex:'GET items → TOTAL them → IF student THEN apply discount → PRINT receipt → CALCULATE change. Then break each of those down again.',
+  bad:'An algorithm you cannot trace by hand is an algorithm you cannot debug. If it is too big to trace, refine it further.'},
+ {n:'6 · Test',t:'Test and validate',
+  d:'Desk-check it with a trace table before it ever runs. Then test it with normal data, boundary data and data that is plain wrong.',
+  ex:'Order of $0. Order of $9999. A student card scanned twice. A quantity of -3. Each one should do something sensible.',
+  bad:'Testing only with data you know works proves nothing except that you are an optimist.'}
+];
+function initProcess(){
+  tabs($('#pSel'),PROC.map(function(p){return p.n;}),function(i){
+    var p=PROC[i];
+    $('#pBody').innerHTML=
+      '<h3 style="margin-bottom:8px">'+esc(p.t)+'</h3>'+
+      '<p style="font-size:.97rem;color:var(--ink2)">'+p.d+'</p>'+
+      '<div class="note win" style="margin:12px 0"><b>Looks like this:</b> '+p.ex+'</div>'+
+      '<div class="note real" style="margin:0"><b>Skip it and:</b> '+p.bad+'</div>';
+  });
+}
+
+/* ---- step-wise refinement builder ---- */
+var REF=[
+ {n:'Make a cup of tea',goal:'Level 1 says: boil the water → prepare the cup → pour and finish. Put each level-2 detail under the right level-1 heading.',
+  bins:[{id:'a',title:'1. Boil the water',hint:'Everything to do with the kettle'},
+        {id:'b',title:'2. Prepare the cup',hint:'Everything before the water goes in'},
+        {id:'c',title:'3. Pour and finish',hint:'Everything after the kettle clicks'}],
+  items:[
+   {t:'Fill the kettle',b:'a',why:'this is part of boiling the water — it happens at the kettle, before it is switched on.'},
+   {t:'Switch the kettle on',b:'a',why:'the kettle cannot boil until it is switched on, so this belongs to step 1.'},
+   {t:'Wait for it to click off',b:'a',why:'waiting for the boil is the last part of step 1, not the first part of pouring.'},
+   {t:'Take a clean cup',b:'b',why:'preparing the cup starts with having one.'},
+   {t:'Put a tea bag in the cup',b:'b',why:'this happens before any water is poured, so it is step 2.'},
+   {t:'Pour the hot water',b:'c',why:'this can only happen once the water has boiled, so it is step 3.'},
+   {t:'Let it brew for 3 minutes',b:'c',why:'brewing happens after pouring — step 3.'},
+   {t:'Remove the bag and stir',b:'c',why:'the finish of the job. Step 3.'}],
+  win:'Notice that nothing you wrote mentions a computer. Refinement is a thinking tool, not a coding tool.'},
+ {n:'Mark a class test',goal:'Level 1 says: set up → mark every script → report. Sort the detail steps.',
+  bins:[{id:'a',title:'1. Set up',hint:'Before you touch a single script'},
+        {id:'b',title:'2. Mark every script',hint:'The part that repeats'},
+        {id:'c',title:'3. Report',hint:'Once every script is done'}],
+  items:[
+   {t:'Set total to 0',b:'a',why:'a running total must be set to zero before the loop, or it starts with rubbish in it.'},
+   {t:'Set count to 0',b:'a',why:'counters are initialised before the loop. Inside the loop they would reset every time.'},
+   {t:'Open the mark scheme',b:'a',why:'preparation — done once, before marking starts.'},
+   {t:'Read the next script',b:'b',why:'this happens once per script, so it is inside the repeating part.'},
+   {t:'Add its mark to the total',b:'b',why:'once per script — inside the loop.'},
+   {t:'Add 1 to the count',b:'b',why:'once per script — inside the loop. This is how you know how many there were.'},
+   {t:'Divide total by count',b:'c',why:'the average can only be worked out after every script is marked.'},
+   {t:'Write the class average',b:'c',why:'reporting happens once, at the end.'}],
+  win:'You have just discovered the shape of every loop program: set up before, repeat in the middle, report after. Remember it.'},
+ {n:'Withdraw cash from an ATM',goal:'Level 1 says: identify the customer → take the request → hand over the money. Sort the detail.',
+  bins:[{id:'a',title:'1. Identify the customer',hint:'Before any money is discussed'},
+        {id:'b',title:'2. Take the request',hint:'Deciding what can happen'},
+        {id:'c',title:'3. Hand over the money',hint:'Acting on the decision'}],
+  items:[
+   {t:'Read the card',b:'a',why:'the machine must know whose account it is before anything else.'},
+   {t:'Ask for the PIN',b:'a',why:'part of proving who the customer is.'},
+   {t:'Check the PIN is correct',b:'a',why:'still identification — nothing about money has happened yet.'},
+   {t:'Ask how much is wanted',b:'b',why:'this is taking the request, which only happens after identification succeeds.'},
+   {t:'Check the balance is enough',b:'b',why:'a validation check on the request, before any cash moves.'},
+   {t:'Check the machine has the notes',b:'b',why:'another check on whether the request can be met.'},
+   {t:'Subtract the amount from the balance',b:'c',why:'the account is only updated once the machine commits to paying out.'},
+   {t:'Dispense the notes',b:'c',why:'the actual handover.'},
+   {t:'Return the card and print a receipt',b:'c',why:'finishing the transaction.'}],
+  win:'Every check sits BEFORE the thing it protects. Put "dispense the notes" before "check the balance" and you have built a very popular ATM.'}
+];
+function initRefine(){
+  var cur=null;
+  tabs($('#rSel'),REF.map(function(r){return r.n;}),function(i){
+    var r=REF[i];
+    $('#rGoal').textContent=r.goal;
+    cur=new Sorter({pool:$('#rPool'),bins:$('#rBins'),binDefs:r.bins,items:r.items,fb:$('#rFb'),win:r.win});
+    $('#rFb').className='feedback';
+  });
+  $('#rCheck').addEventListener('click',function(){if(cur&&cur.check())markTabDone($('#rSel'),$$('.tab',$('#rSel')).map(function(t){return t.getAttribute('aria-pressed');}).indexOf('true'));});
+  $('#rReset').addEventListener('click',function(){if(cur)cur.reset();});
+}
+
+/* ---- ambiguity game ---- */
+var AMB=[
+ {s:'Add [[a few]] spoons of sugar to the cup.',why:'How many is "a few"? Two? Five? The computer needs a number, not a vibe.'},
+ {s:'If the student did [[well]], print a certificate.',why:'"Well" is an opinion. Give it a rule: mark 75 or more.'},
+ {s:'Keep adding numbers until you have [[enough]].',why:'Enough for what? A loop needs a condition it can actually test — a count, a total, a sentinel value.'},
+ {s:'Pay the staff member their [[usual]] wage.',why:'Usual according to whom? The computer has no memory of last month unless you tell it where to look.'},
+ {s:'Sort the list of names [[properly]].',why:'A to Z? Z to A? By surname? By length? "Properly" is three different algorithms.'},
+ {s:'Wait [[a short while]] and then try again.',why:'A short while is 10 milliseconds to a computer and ten minutes to a person. Give it a number and a unit.'},
+ {s:'Give the customer a [[good]] discount if they buy a lot.',why:'Two problems in one sentence — "good" is not a percentage and "a lot" is not a quantity.'},
+ {s:'Print the results in the [[right]] order.',why:'Right by date? By score? By the order they were entered? Say which.'}
+];
+function initAmb(){
+  var idx=0,ans=false;
+  function draw(){
+    var q=AMB[idx],m=q.s.match(/^([\s\S]*?)\[\[([\s\S]*?)\]\]([\s\S]*)$/);
+    var before=m[1],bad=m[2],after=m[3];
+    function words(txt,isBad){
+      return txt.split(/(\s+)/).map(function(w){
+        if(!w.trim())return w;
+        return '<span class="aw" data-bad="'+(isBad?1:0)+'" style="cursor:pointer;padding:1px 3px;border-radius:4px;border-bottom:1px dotted var(--ink3)">'+esc(w)+'</span>';
+      }).join('');
+    }
+    $('#aBody').innerHTML='<p style="font-size:1.12rem;font-family:\'Space Grotesk\',sans-serif;line-height:1.9;margin:0">'+
+      words(before,false)+words(bad,true)+words(after,false)+'</p>'+
+      '<p class="mono" style="font-size:.76rem;color:var(--ink3);margin:10px 0 0">'+(idx+1)+' of '+AMB.length+' · click the part a computer could not act on</p>';
+    $('#aFb').className='feedback';ans=false;
+  }
+  $('#aBody').addEventListener('click',function(e){
+    var w=e.target.closest?e.target.closest('.aw'):null;
+    if(!w||ans)return;
+    if(w.dataset.bad==='1'){
+      ans=true;
+      $$('.aw',$('#aBody')).forEach(function(x){if(x.dataset.bad==='1'){x.style.background='rgba(17,141,119,.18)';x.style.borderBottom='0';}});
+      say($('#aFb'),'<b>Yes.</b> '+AMB[idx].why,true);
+    }else{
+      w.style.background='rgba(224,75,47,.14)';
+      say($('#aFb'),'Not that word — a computer can handle it. Look for the part that depends on human judgement.',false);
+    }
+  });
+  $('#aNext').addEventListener('click',function(){idx=(idx+1)%AMB.length;draw();});
+  draw();
+}
+
+/* ==================================================================
+   FLOWCHART RENDERER  (shared by the notation panel and the builder)
+   nodes: {t:'term'|'io'|'proc'|'dec'|'slot', x:'label', ans:'io', yes:[], no:[], body:[]}
+   ================================================================== */
+var BW=186,BH=44,DW=206,DH=68,GAP=30,OFF=152;
+function wrapTxt(s,n){
+  var w=String(s).split(' '),ls=[],c='';
+  w.forEach(function(x){ if((c+' '+x).trim().length>n){ls.push(c.trim());c=x;} else c+=' '+x; });
+  if(c.trim())ls.push(c.trim());
+  return ls.slice(0,2);
+}
+function txtEl(cx,cy,label,col){
+  var ls=wrapTxt(label,24),i,h='';
+  var y0=cy-(ls.length-1)*7;
+  for(i=0;i<ls.length;i++)
+    h+='<text x="'+cx+'" y="'+(y0+i*14+4.5)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="'+(col||'#16202C')+'">'+esc(ls[i])+'</text>';
+  return h;
+}
+function shapeEl(t,cx,y,label,sel){
+  var w=(t==='dec')?DW:BW,h=(t==='dec')?DH:BH,x=cx-w/2,s='',st='#16202C',fl='#fff';
+  var mid=y+h/2;
+  if(t==='term'){fl='#F5E6F0';s='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="21" fill="'+fl+'" stroke="'+st+'" stroke-width="2"/>';}
+  else if(t==='io'){fl='#E7F3FF';s='<polygon points="'+(x+16)+','+y+' '+(x+w)+','+y+' '+(x+w-16)+','+(y+h)+' '+x+','+(y+h)+'" fill="'+fl+'" stroke="'+st+'" stroke-width="2"/>';}
+  else if(t==='proc'){fl='#FFF6E6';s='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="3" fill="'+fl+'" stroke="'+st+'" stroke-width="2"/>';}
+  else if(t==='dec'){fl='#EAF7F2';s='<polygon points="'+cx+','+y+' '+(x+w)+','+mid+' '+cx+','+(y+h)+' '+x+','+mid+'" fill="'+fl+'" stroke="'+st+'" stroke-width="2"/>';}
+  else if(t==='sub'){fl='#F0EEF8';s='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+fl+'" stroke="'+st+'" stroke-width="2"/>'+
+      '<line x1="'+(x+10)+'" y1="'+y+'" x2="'+(x+10)+'" y2="'+(y+h)+'" stroke="'+st+'" stroke-width="2"/>'+
+      '<line x1="'+(x+w-10)+'" y1="'+y+'" x2="'+(x+w-10)+'" y2="'+(y+h)+'" stroke="'+st+'" stroke-width="2"/>';}
+  else s='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="8" fill="#fff" stroke="#A8327D" stroke-width="2" stroke-dasharray="6 5"/>';
+  if(sel)s+='<rect x="'+(x-5)+'" y="'+(y-5)+'" width="'+(w+10)+'" height="'+(h+10)+'" rx="10" fill="none" stroke="#A8327D" stroke-width="2.5"/>';
+  return s+txtEl(cx,mid,label,t==='slot'?'#A8327D':'#16202C');
+}
+function arrow(pts){
+  return '<polyline points="'+pts.map(function(p){return p[0]+','+p[1];}).join(' ')+
+    '" fill="none" stroke="#16202C" stroke-width="2" marker-end="url(#fcarrow)"/>';
+}
+function plainLine(pts){
+  return '<polyline points="'+pts.map(function(p){return p[0]+','+p[1];}).join(' ')+'" fill="none" stroke="#16202C" stroke-width="2"/>';
+}
+function lbl(x,y,t){return '<text x="'+x+'" y="'+y+'" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#A8327D">'+esc(t)+'</text>';}
+
+function layoutSeq(nodes,cx,y,acc,ctx){
+  nodes.forEach(function(n,ix){
+    var last=(ix===nodes.length-1);
+    if(n.t==='dec'&&(n.yes||n.no)){
+      acc.push(shapeEl('dec',cx,y,n.x,n.id!=null&&ctx.sel===n.id));
+      if(n.id!=null)acc.push('<rect class="hit" data-id="'+n.id+'" x="'+(cx-DW/2)+'" y="'+y+'" width="'+DW+'" height="'+DH+'" fill="transparent" style="cursor:pointer"/>');
+      var mid=y+DH/2,topY=y+DH+GAP;
+      acc.push(arrow([[cx-DW/2,mid],[cx-OFF,mid],[cx-OFF,topY]]));
+      acc.push(lbl(cx-DW/2-30,mid-8,'NO'));
+      acc.push(arrow([[cx+DW/2,mid],[cx+OFF,mid],[cx+OFF,topY]]));
+      acc.push(lbl(cx+DW/2+8,mid-8,'YES'));
+      var ly=layoutSeq(n.no||[],cx-OFF,topY,acc,ctx);
+      var ry=layoutSeq(n.yes||[],cx+OFF,topY,acc,ctx);
+      var merge=Math.max(ly,ry)+GAP;
+      acc.push(plainLine([[cx-OFF,ly],[cx-OFF,merge],[cx,merge]]));
+      acc.push(plainLine([[cx+OFF,ry],[cx+OFF,merge],[cx,merge]]));
+      ctx.maxX=Math.max(ctx.maxX,cx+OFF+BW/2+46);
+      ctx.minX=Math.min(ctx.minX,cx-OFF-BW/2-30);
+      y=merge;
+      if(!last){acc.push(arrow([[cx,y],[cx,y+GAP]]));y+=GAP;}
+      return;
+    }
+    if(n.t==='while'){
+      var dy=y;
+      acc.push(shapeEl('dec',cx,dy,n.x,n.id!=null&&ctx.sel===n.id));
+      if(n.id!=null)acc.push('<rect class="hit" data-id="'+n.id+'" x="'+(cx-DW/2)+'" y="'+dy+'" width="'+DW+'" height="'+DH+'" fill="transparent" style="cursor:pointer"/>');
+      var dmid=dy+DH/2,bodyTop=dy+DH+GAP;
+      acc.push(arrow([[cx,dy+DH],[cx,bodyTop]]));
+      acc.push(lbl(cx+8,dy+DH+19,'YES'));
+      var by=layoutSeq(n.body||[],cx,bodyTop,acc,ctx);
+      var back=cx-BW/2-44,ex=cx+DW/2+54;
+      acc.push(arrow([[cx,by],[cx,by+24],[back,by+24],[back,dy-22],[cx,dy-22],[cx,dy]]));
+      acc.push(plainLine([[cx+DW/2,dmid],[ex,dmid],[ex,by+62],[cx,by+62]]));
+      acc.push(lbl(cx+DW/2+8,dmid-8,'NO'));
+      ctx.maxX=Math.max(ctx.maxX,ex+40);ctx.minX=Math.min(ctx.minX,back-24);
+      y=by+62;
+      if(!last){acc.push(arrow([[cx,y],[cx,y+GAP]]));y+=GAP;}
+      return;
+    }
+    var t=(n.t==='slot')?((ctx.pick&&ctx.pick[n.id])?ctx.pick[n.id]:'slot'):n.t;
+    acc.push(shapeEl(t,cx,y,n.x,n.id!=null&&ctx.sel===n.id));
+    if(n.id!=null)acc.push('<rect class="hit" data-id="'+n.id+'" x="'+(cx-BW/2)+'" y="'+y+'" width="'+BW+'" height="'+BH+'" fill="transparent" style="cursor:pointer"/>');
+    ctx.maxX=Math.max(ctx.maxX,cx+BW/2+24);ctx.minX=Math.min(ctx.minX,cx-BW/2-24);
+    y+=BH;
+    if(!last){acc.push(arrow([[cx,y],[cx,y+GAP]]));y+=GAP;}
+  });
+  return y;
+}
+function fcSVG(nodes,pick,sel){
+  var cx=300,acc=[],ctx={pick:pick||{},sel:sel,maxX:cx+BW/2+20,minX:cx-BW/2-20,next:true};
+  var endY=layoutSeq(nodes,cx,22,acc,ctx);
+  var w=Math.max(ctx.maxX-ctx.minX+40,460),x0=ctx.minX-20;
+  return '<svg viewBox="'+x0+' 0 '+w+' '+(endY+10)+'" width="'+Math.min(w,620)+'" role="img">'+
+    '<defs><marker id="fcarrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">'+
+    '<path d="M0,0 L10,5 L0,10 z" fill="#16202C"/></marker></defs>'+acc.join('')+'</svg>';
+}
+
+/* ==================================================================
+   THREE NOTATIONS + SIX TO WRITE
+   ================================================================== */
+var NOTE3=[
+ {n:'Pass or fail',
+  narr:'Start. Ask the user for the mark and read it in. If the mark is 50 or more, print PASS. Otherwise print FAIL. Stop.',
+  pseudo:'START\nDECLARE mark : INTEGER\nWRITE "Enter the mark"\nREAD mark\nIF mark >= 50 THEN\n   WRITE "PASS"\nELSE\n   WRITE "FAIL"\nENDIF\nSTOP',
+  nodes:[{t:'term',x:'START'},{t:'io',x:'READ mark'},
+         {t:'dec',x:'mark >= 50 ?',yes:[{t:'io',x:'WRITE "PASS"'}],no:[{t:'io',x:'WRITE "FAIL"'}]},
+         {t:'term',x:'STOP'}],
+  note:'Narrative is easy to read and hopeless to mark — it hides the structure. Pseudocode shows the structure. The flowchart shows it to someone who has never written a line of code.'},
+ {n:'Total until -1',
+  narr:'Start. Set the total to zero. Read the first number. While that number is not -1, add it to the total and read the next number. When -1 arrives, print the total and stop.',
+  pseudo:'START\nDECLARE n, total : INTEGER\ntotal <- 0\nREAD n\nWHILE n <> -1 DO\n   total <- total + n\n   READ n\nENDWHILE\nWRITE "Total is", total\nSTOP',
+  nodes:[{t:'term',x:'START'},{t:'proc',x:'total <- 0'},{t:'io',x:'READ n'},
+         {t:'while',x:'n <> -1 ?',body:[{t:'proc',x:'total <- total + n'},{t:'io',x:'READ n'}]},
+         {t:'io',x:'WRITE total'},{t:'term',x:'STOP'}],
+  note:'Look where READ n appears — twice. Once before the loop and once at the bottom of it. Leave out either one and the program breaks. This is the single most common loop mistake in the exam.'},
+ {n:'Average of ten',
+  narr:'Start. Set total to zero. Repeat ten times: read a number and add it to the total. After the tenth, divide the total by ten and print the result. Stop.',
+  pseudo:'START\nDECLARE total, i, n : INTEGER\nDECLARE average : REAL\ntotal <- 0\nFOR i <- 1 TO 10\n   READ n\n   total <- total + n\nENDFOR\naverage <- total / 10\nWRITE "Average is", average\nSTOP',
+  nodes:[{t:'term',x:'START'},{t:'proc',x:'total <- 0'},{t:'proc',x:'i <- 1'},
+         {t:'while',x:'i <= 10 ?',body:[{t:'io',x:'READ n'},{t:'proc',x:'total <- total + n'},{t:'proc',x:'i <- i + 1'}]},
+         {t:'proc',x:'average <- total/10'},{t:'io',x:'WRITE average'},{t:'term',x:'STOP'}],
+  note:'A FOR loop has no diamond of its own in pseudocode, but a flowchart must still show the test and the counter. That is why the chart has three extra boxes the pseudocode hides.'}
+];
+function initNotations(){
+  tabs($('#wSel'),NOTE3.map(function(x){return x.n;}),function(i){
+    var e=NOTE3[i];
+    $('#wBody').innerHTML=
+      '<div class="two" style="gap:18px;margin-bottom:16px">'+
+        '<div><p class="mono" style="font-size:.74rem;color:var(--hot);margin:0 0 6px">1 · NARRATIVE</p>'+
+          '<div style="border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:var(--paper);font-size:.95rem">'+esc(e.narr)+'</div>'+
+          '<p class="mono" style="font-size:.74rem;color:var(--hot);margin:16px 0 6px">2 · PSEUDOCODE</p>'+
+          '<div class="code">'+codeHTML(e.pseudo,-1,null)+'</div>'+
+          '<div class="btnrow"><button class="btn ghost" type="button" data-send="'+i+'">Open this in the machine ↑</button></div>'+
+        '</div>'+
+        '<div><p class="mono" style="font-size:.74rem;color:var(--hot);margin:0 0 6px">3 · FLOWCHART</p>'+
+          '<div class="fccanvas">'+fcSVG(e.nodes)+'</div></div>'+
+      '</div>'+
+      '<div class="note warn" style="margin:0"><b>Notice:</b> '+e.note+'</div>';
+    var b=$('[data-send]',$('#wBody'));
+    if(b)b.addEventListener('click',function(){
+      window.__loadMachine(e.pseudo,i===0?'63':(i===1?'5, 10, 20, -1':'4,8,15,16,23,42,1,2,3,5'));});
+  });
+}
+
+/* ---- six to write ---- */
+var WRITE6=[
+ {n:'1 · Area',brief:'Read a length and a width, then print the area of the rectangle.',
+  start:'START\nDECLARE length, width, area\nREAD length\nREAD width\n// your line goes here\nWRITE "Area is", area\nSTOP',
+  tests:[{in:[5,3],want:['15']},{in:[7,7],want:['49']},{in:[12,0],want:['0']}],
+  sol:'START\nDECLARE length, width, area\nREAD length\nREAD width\narea <- length * width\nWRITE "Area is", area\nSTOP'},
+ {n:'2 · Celsius',brief:'Read a temperature in Celsius and print it in Fahrenheit. The formula is F = C × 9 / 5 + 32.',
+  start:'START\nDECLARE c, f\nREAD c\n// work out f here\nWRITE c, "C is", f, "F"\nSTOP',
+  tests:[{in:[100],want:['212']},{in:[0],want:['32']},{in:[37],want:['98.6']},{in:[-40],want:['-40']}],
+  sol:'START\nDECLARE c, f\nREAD c\nf <- c * 9 / 5 + 32\nWRITE c, "C is", f, "F"\nSTOP'},
+ {n:'3 · Bigger',brief:'Read two numbers and print the bigger one. If they are equal, print either.',
+  start:'START\nDECLARE a, b\nREAD a\nREAD b\n// decide here\nSTOP',
+  tests:[{in:[8,3],want:['8']},{in:[2,19],want:['19']},{in:[6,6],want:['6']},{in:[-5,-9],want:['-5']}],
+  sol:'START\nDECLARE a, b\nREAD a\nREAD b\nIF a > b THEN\n   WRITE a\nELSE\n   WRITE b\nENDIF\nSTOP'},
+ {n:'4 · Count the passes',brief:'Ten marks are coming in. Print how many of them are 50 or more. You know it is ten, so you know which loop to use.',
+  start:'START\nDECLARE i, mark, passes\npasses <- 0\nFOR i <- 1 TO 10\n   READ mark\n   // count it if it passed\nENDFOR\nWRITE passes, "passed"\nSTOP',
+  tests:[{in:[50,49,80,12,100,0,55,49,51,99],want:['6']},
+         {in:[10,20,30,40,45,49,1,2,3,4],want:['0']},
+         {in:[60,70,80,90,100,51,52,53,54,55],want:['10']}],
+  sol:'START\nDECLARE i, mark, passes\npasses <- 0\nFOR i <- 1 TO 10\n   READ mark\n   IF mark >= 50 THEN\n      passes <- passes + 1\n   ENDIF\nENDFOR\nWRITE passes, "passed"\nSTOP'},
+ {n:'5 · Until zero',brief:'Numbers keep coming until somebody types 0. Print how many there were (not counting the 0) and what they add up to. You do not know how many, so you know which loop to use.',
+  start:'START\nDECLARE n, count, total\ncount <- 0\ntotal <- 0\nREAD n\n// loop here\nWRITE count, total\nSTOP',
+  tests:[{in:[4,8,15,0],want:['3','27']},{in:[0],want:['0','0']},{in:[100,0],want:['1','100']}],
+  sol:'START\nDECLARE n, count, total\ncount <- 0\ntotal <- 0\nREAD n\nWHILE n <> 0 DO\n   count <- count + 1\n   total <- total + n\n   READ n\nENDWHILE\nWRITE count, total\nSTOP'},
+ {n:'6 · Factorial',brief:'Read a number n and print n factorial — that is 1 × 2 × 3 × … × n. Careful with what you start the running product at.',
+  start:'START\nDECLARE n, i, product\nREAD n\nproduct <- 1\n// loop here\nWRITE n, "! =", product\nSTOP',
+  tests:[{in:[5],want:['120']},{in:[1],want:['1']},{in:[7],want:['5040']},{in:[10],want:['3628800']}],
+  sol:'START\nDECLARE n, i, product\nREAD n\nproduct <- 1\nFOR i <- 1 TO n\n   product <- product * i\nENDFOR\nWRITE n, "! =", product\nSTOP'}
+];
+function checkWanted(out,want){
+  var hay=out.join(' · '),pos=0,i,at;
+  for(i=0;i<want.length;i++){
+    at=hay.indexOf(want[i],pos);
+    if(at<0)return false;
+    pos=at+String(want[i]).length;
+  }
+  return true;
+}
+function initWrite6(){
+  var host=$('#xBody');
+  tabs($('#xSel'),WRITE6.map(function(w){return w.n;}),function(i){
+    var w=WRITE6[i];
+    host.innerHTML=
+      '<p class="sub" style="margin-bottom:12px">'+esc(w.brief)+'</p>'+
+      '<div class="two" style="gap:18px">'+
+        '<div><textarea class="edit" id="xEd" spellcheck="false" aria-label="Your pseudocode"></textarea>'+
+          '<div class="btnrow"><button class="btn accent" type="button" id="xRun">▶ Run the tests</button>'+
+          '<button class="btn ghost" type="button" id="xSol">Show one solution</button>'+
+          '<button class="btn ghost" type="button" id="xRe">Reset</button></div></div>'+
+        '<div><p class="mono" style="font-size:.74rem;color:var(--ink3);margin:0 0 6px">TEST RESULTS</p>'+
+          '<div class="scroll"><div id="xRes" style="font-size:.86rem;color:var(--ink3)">Press <b>Run the tests</b> — your program is run once for each set of inputs below.</div></div></div>'+
+      '</div>'+
+      '<div class="feedback" id="xFb"></div>';
+    $('#xEd').value=w.start;
+    $('#xRe').addEventListener('click',function(){$('#xEd').value=w.start;$('#xRes').textContent='';$('#xFb').className='feedback';});
+    $('#xSol').addEventListener('click',function(){
+      $('#xEd').value=w.sol;
+      say($('#xFb'),'<b>One way to do it.</b> Yours may look different and still be right — press Run the tests and see. Read it, then try to write it again from memory.',true);});
+    $('#xRun').addEventListener('click',function(){
+      var src=$('#xEd').value,pass=0,rows='';
+      w.tests.forEach(function(t,k){
+        var r=runSrc(src,t.in.map(String)),good,detail;
+        if(!r.ok){good=false;detail='<span style="color:#8E2A17">error line '+(r.errLine+1)+': '+esc(r.err)+'</span>';}
+        else{good=checkWanted(r.out,t.want);detail=esc(r.out.join(' · ')||'(printed nothing)');}
+        if(good)pass++;
+        rows+='<div style="border:1px solid var(--line);border-left:4px solid '+(good?'var(--mint)':'var(--red)')+
+          ';border-radius:8px;padding:8px 11px;margin-bottom:7px;font-size:.84rem">'+
+          '<span class="mono" style="color:var(--ink3)">in: '+esc(t.in.join(', '))+'</span><br>'+
+          '<span class="mono">'+(good?'✓ ':'✕ ')+detail+'</span>'+
+          (good?'':'<br><span class="mono" style="color:var(--ink3);font-size:.78rem">expected to see: '+esc(t.want.join(', '))+'</span>')+
+          '</div>';
+      });
+      $('#xRes').innerHTML=rows;
+      if(pass===w.tests.length){
+        say($('#xFb'),'<b>All '+pass+' tests pass.</b> That is what finished looks like — not "it ran", but "it gave the right answer on every case, including the awkward one".',true);
+        markTabDone($('#xSel'),i);
+      }else{
+        say($('#xFb'),'<b>'+pass+' of '+w.tests.length+' passing.</b> Look at the first failing case above and trace it by hand — line by line, pretending to be very stupid. The bug is always on a line you were sure about.',false);
+      }
+    });
+  });
+}
+
+/* ==================================================================
+   FLOWCHART SYMBOLS + BUILDER
+   ================================================================== */
+var SYMS=[
+ {t:'term',n:'Terminator',u:'START and STOP — nothing else, ever.',w:'Using it for an ordinary step. It marks the two ends of the chart and that is all.'},
+ {t:'io',n:'Input / Output',u:'READ, WRITE, PRINT, DISPLAY — anything crossing in or out of the program.',w:'Drawing a rectangle for READ. Data coming in or going out always gets the slanted box.'},
+ {t:'proc',n:'Process',u:'A calculation or an assignment: total ← total + n.',w:'Putting a question in it. A process has exactly one way in and one way out.'},
+ {t:'dec',n:'Decision',u:'A question with exactly two answers. Two arrows leave it, labelled YES and NO.',w:'Forgetting to label the arrows, or drawing a diamond with only one exit.'},
+ {t:'sub',n:'Subprocess',u:'A whole separate module called from here — "CALL CalculateTax".',w:'Spelling out the module inside it. The point is that the detail lives elsewhere.'},
+ {t:'flow',n:'Flow line',u:'An arrow. It shows the order things happen, and it always has a head on it.',w:'Drawing a bare line with no arrowhead. Then nobody, including the marker, knows which way it goes.'}
+];
+function miniSVG(t){
+  if(t==='flow')return '<svg width="64" height="46" viewBox="0 0 64 46"><defs><marker id="mm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16202C"/></marker></defs><line x1="32" y1="6" x2="32" y2="38" stroke="#16202C" stroke-width="2" marker-end="url(#mm)"/></svg>';
+  var s=shapeEl(t,32,6,'');
+  return '<svg width="64" height="46" viewBox="'+(32-BW/2)+' 0 '+BW+' 58" preserveAspectRatio="xMidYMid meet">'+s+'</svg>';
+}
+function initSyms(){
+  $('#fSyms').innerHTML='<table class="tt" style="min-width:560px"><thead><tr><th>Shape</th><th class="l">Name</th><th class="l">Use it for</th><th class="l">What goes wrong</th></tr></thead><tbody>'+
+   SYMS.map(function(s){
+     return '<tr><td style="padding:6px">'+miniSVG(s.t)+'</td><td class="l"><b>'+esc(s.n)+'</b></td>'+
+       '<td class="l" style="white-space:normal;max-width:230px">'+esc(s.u)+'</td>'+
+       '<td class="l" style="white-space:normal;max-width:250px;color:#8E2A17">'+esc(s.w)+'</td></tr>';
+   }).join('')+'</tbody></table>';
+}
+
+var FCEX=[
+ {n:'Double a number',
+  code:'START\nREAD n\nanswer <- n * 2\nWRITE answer\nSTOP',
+  nodes:[{t:'slot',id:0,x:'START',ans:'term'},{t:'slot',id:1,x:'READ n',ans:'io'},
+         {t:'slot',id:2,x:'answer <- n * 2',ans:'proc'},{t:'slot',id:3,x:'WRITE answer',ans:'io'},
+         {t:'slot',id:4,x:'STOP',ans:'term'}],
+  tip:'Four shapes, five boxes. Two of them are the same shape and they are not next to each other.'},
+ {n:'Discount or not',
+  code:'START\nREAD spend\nIF spend > 100 THEN\n   WRITE "10% off"\nELSE\n   WRITE "Full price"\nENDIF\nSTOP',
+  nodes:[{t:'slot',id:0,x:'START',ans:'term'},{t:'slot',id:1,x:'READ spend',ans:'io'},
+         {t:'dec',x:'spend > 100 ?',yes:[{t:'slot',id:2,x:'WRITE "10% off"',ans:'io'}],
+                                     no:[{t:'slot',id:3,x:'WRITE "Full price"',ans:'io'}]},
+         {t:'slot',id:4,x:'STOP',ans:'term'}],
+  tip:'The diamond is already drawn for you. Both branches end up printing something — and printing is always the same shape.'},
+ {n:'Add up until -1',
+  code:'START\ntotal <- 0\nREAD n\nWHILE n <> -1 DO\n   total <- total + n\n   READ n\nENDWHILE\nWRITE total\nSTOP',
+  nodes:[{t:'slot',id:0,x:'START',ans:'term'},{t:'slot',id:1,x:'total <- 0',ans:'proc'},
+         {t:'slot',id:2,x:'READ n',ans:'io'},
+         {t:'while',x:'n <> -1 ?',body:[{t:'slot',id:3,x:'total <- total + n',ans:'proc'},{t:'slot',id:4,x:'READ n',ans:'io'}]},
+         {t:'slot',id:5,x:'WRITE total',ans:'io'},{t:'slot',id:6,x:'STOP',ans:'term'}],
+  tip:'Six slots. Watch the two READ n boxes — same statement, same shape, in two different places. That repetition is the whole point of the loop.'}
+];
+var PAL=[{t:'term',n:'Terminator'},{t:'io',n:'Input / Output'},{t:'proc',n:'Process'},{t:'dec',n:'Decision'},{t:'sub',n:'Subprocess'}];
+function initFCBuilder(){
+  var cur=0,pick={},sel=null,shape=null;
+  function draw(){
+    $('#cCanvas').innerHTML=fcSVG(FCEX[cur].nodes,pick,sel);
+  }
+  function slots(){
+    var out=[];
+    (function walk(ns){ns.forEach(function(n){
+      if(n.t==='slot')out.push(n);
+      if(n.yes)walk(n.yes);if(n.no)walk(n.no);if(n.body)walk(n.body);});})(FCEX[cur].nodes);
+    return out;
+  }
+  $('#cPal').innerHTML=PAL.map(function(p){
+    return '<button type="button" data-s="'+p.t+'">'+miniSVG(p.t)+'<span>'+esc(p.n)+'</span></button>';
+  }).join('')+'<button type="button" data-s="" style="color:var(--ink3)">✕ &nbsp;Clear this one</button>';
+  $('#cPal').addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('button'):null;
+    if(!b)return;
+    shape=b.getAttribute('data-s')||null;
+    $$('#cPal button').forEach(function(x){x.style.borderColor='';x.style.background='';});
+    if(shape){b.style.borderColor='var(--hot)';b.style.background='rgba(168,50,125,.07)';}
+    if(sel!==null){pick[sel]=shape;if(!shape)delete pick[sel];sel=null;draw();}
+  });
+  $('#cCanvas').addEventListener('click',function(e){
+    var h=e.target.closest?e.target.closest('.hit'):null;
+    if(!h)return;
+    var id=parseInt(h.getAttribute('data-id'),10);
+    if(shape){pick[id]=shape;sel=null;}
+    else sel=(sel===id?null:id);
+    draw();
+  });
+  $('#cCheck').addEventListener('click',function(){
+    var ss=slots(),right=0,wrong=[],blank=0;
+    ss.forEach(function(s){
+      if(!pick[s.id]){blank++;return;}
+      if(pick[s.id]===s.ans)right++;else wrong.push(s);
+    });
+    if(blank){say($('#cFb'),'<b>'+blank+' box'+(blank===1?' is':'es are')+' still empty.</b> Every dashed box needs a shape before I can mark it.',false);return;}
+    if(!wrong.length){
+      say($('#cFb'),'<b>All '+right+' correct.</b> '+esc(FCEX[cur].tip),true);
+      markTabDone($('#cSel'),cur);return;}
+    say($('#cFb'),'<b>'+right+' right, '+wrong.length+' wrong.</b><ul style="margin:8px 0 0;padding-left:20px">'+
+      wrong.map(function(s){
+        var nm={term:'a terminator',io:'input/output',proc:'a process',dec:'a decision',sub:'a subprocess'};
+        return '<li><span class="mono">'+esc(s.x)+'</span> should be <b>'+nm[s.ans]+'</b>, not '+nm[pick[s.id]]+'. '+
+          (s.ans==='io'?'Data is crossing the boundary of the program.':
+           s.ans==='proc'?'Nothing enters or leaves — a value is just being worked out.':
+           s.ans==='term'?'This is one end of the chart.':'')+'</li>';
+      }).join('')+'</ul>',false);
+  });
+  $('#cClear').addEventListener('click',function(){pick={};sel=null;$('#cFb').className='feedback';draw();});
+  tabs($('#cSel'),FCEX.map(function(f){return f.n;}),function(i){
+    cur=i;pick={};sel=null;$('#cFb').className='feedback';
+    $('#cCode').innerHTML=codeHTML(FCEX[i].code,-1,null);draw();
+  });
+}
+
+/* ==================================================================
+   LOOP LAB + CONDITIONS
+   ================================================================== */
+var LOOPS=[
+ {n:'FOR',note:'Known number of times',
+  src:'DECLARE i\nFOR i <- 1 TO 5\n   WRITE "Pass number", i\nENDFOR\nWRITE "i is now", i',
+  fb:'<b>Five passes, and look at the last line.</b> After the loop finishes, <span class="mono">i</span> is 6, not 5 — it had to go one past the limit for the loop to notice it was done. Exam questions live on that detail.'},
+ {n:'WHILE',note:'Test at the top',
+  src:'DECLARE i\ni <- 1\nWHILE i <= 5 DO\n   WRITE "Pass number", i\n   i <- i + 1\nENDWHILE\nWRITE "i is now", i',
+  fb:'<b>Same five lines of output, three times the work.</b> You had to set <span class="mono">i</span> yourself, test it yourself and add 1 yourself. Forget that last one and the program never ends. A FOR loop does all three for you — which is exactly why you use it when you know the count.'},
+ {n:'REPEAT UNTIL',note:'Test at the bottom',
+  src:'DECLARE i\ni <- 1\nREPEAT\n   WRITE "Pass number", i\n   i <- i + 1\nUNTIL i > 5',
+  fb:'<b>Same output again.</b> The difference is invisible here because the condition was true from the start. Switch to the next tab to see where it stops being invisible.'},
+ {n:'WHILE, zero times',note:'The condition starts false',
+  src:'DECLARE i, limit\nlimit <- 0\ni <- 1\nWRITE "before the loop"\nWHILE i <= limit DO\n   WRITE "inside the loop"\n   i <- i + 1\nENDWHILE\nWRITE "after the loop"',
+  fb:'<b>"inside the loop" never printed.</b> The test happens before the body, it failed immediately, and the whole loop was skipped. A WHILE loop can run <b>zero</b> times — and that is usually what you want for "process every item in the queue" when the queue is empty.'},
+ {n:'REPEAT, zero times',note:'Except it cannot',
+  src:'DECLARE i, limit\nlimit <- 0\ni <- 1\nWRITE "before the loop"\nREPEAT\n   WRITE "inside the loop"\n   i <- i + 1\nUNTIL i > limit\nWRITE "after the loop"',
+  fb:'<b>"inside the loop" printed once anyway.</b> Identical situation, different answer, because REPEAT tests at the <b>bottom</b> — the body has already happened by the time anyone asks. Minimum one pass, always. Perfect for "ask for a password", disastrous for "charge the customer".'}
+];
+function initLoops(){
+  var cur=0;
+  tabs($('#lSel'),LOOPS.map(function(l){return l.n;}),function(i){
+    cur=i;
+    $('#lCode').innerHTML=codeHTML(LOOPS[i].src,-1,null);
+    $('#lNote').textContent=LOOPS[i].note;
+    $('#lOut').innerHTML='';
+    $('#lFb').className='feedback show good';
+    $('#lFb').innerHTML='Predict the output <em>before</em> you press Run. Predicting and then checking is worth ten times more than reading.';
+  });
+  $('#lRun').addEventListener('click',function(){
+    var r=runSrc(LOOPS[cur].src,[]);
+    $('#lOut').innerHTML=r.ok?esc(r.out.join('\n')):('<span style="color:#FF9B8A">'+esc(r.err)+'</span>');
+    $('#lFb').className='feedback show good';
+    $('#lFb').innerHTML=LOOPS[cur].fb;
+    markTabDone($('#lSel'),cur);
+  });
+}
+var CONDS=[
+ ['is equal to','a = b','In most real languages this is <span class="mono">==</span>. In pseudocode a single <span class="mono">=</span> is fine for comparison.'],
+ ['is not equal to','a &lt;&gt; b','Some books write <span class="mono">≠</span> or <span class="mono">!=</span>. All three mean the same thing.'],
+ ['is more than','a &gt; b','Strictly more. 50 &gt; 50 is FALSE — this is where boundary marks get lost.'],
+ ['is at least','a &gt;= b','50 &gt;= 50 is TRUE. "At least", "no less than" and "or more" all mean &gt;=.'],
+ ['is between 1 and 10','n &gt;= 1 AND n &lt;= 10','You need the variable <em>twice</em>. <span class="mono">1 &lt;= n &lt;= 10</span> does not work.'],
+ ['is not between 1 and 10','n &lt; 1 OR n &gt; 10','Flip both comparisons <em>and</em> swap AND for OR. Miss the swap and the condition is never true.'],
+ ['both must be true','x AND y','If the first one is false the answer is already false.'],
+ ['at least one must be true','x OR y','OR in computing means "one or the other or both" — not the everyday "one or the other but not both".'],
+ ['the opposite of','NOT x','<span class="mono">NOT (a &gt; b)</span> is the same as <span class="mono">a &lt;= b</span>. Note the <em>equals</em> creeping in.']
+];
+function initConds(){
+  $('#condRows').innerHTML=CONDS.map(function(c){
+    return '<tr><td class="l" style="white-space:normal">'+c[0]+'</td><td class="l mono" style="color:var(--hot);font-weight:700">'+c[1]+
+      '</td><td class="l" style="white-space:normal;max-width:330px;font-size:.78rem;color:var(--ink2)">'+c[2]+'</td></tr>';
+  }).join('');
+}
+
+/* ==================================================================
+   TRACE TABLE TRAINER
+   ================================================================== */
+var TRACE=[
+ {n:'1 · Straight line',inp:[],
+  src:'DECLARE a, b, c\na <- 5\nb <- 3\nc <- a + b\na <- c - 1\nWRITE c'},
+ {n:'2 · FOR loop',inp:[],
+  src:'DECLARE total, i\ntotal <- 0\nFOR i <- 1 TO 4\n   total <- total + i\nENDFOR\nWRITE total'},
+ {n:'3 · WHILE with a sentinel',inp:['6','2','-1'],
+  src:'DECLARE n, count, total\ncount <- 0\ntotal <- 0\nREAD n\nWHILE n <> -1 DO\n   total <- total + n\n   count <- count + 1\n   READ n\nENDWHILE\nWRITE count\nWRITE total'},
+ {n:'4 · Digits, backwards',inp:['472'],
+  src:'DECLARE num, digit, sum\nREAD num\nsum <- 0\nWHILE num > 0 DO\n   digit <- num MOD 10\n   sum <- sum + digit\n   num <- num DIV 10\nENDWHILE\nWRITE sum'}
+];
+function sameVal(a,b){
+  var x=String(a).trim(),y=String(b).trim();
+  if(x===''||y==='')return false;
+  var nx=parseFloat(x),ny=parseFloat(y);
+  if(!isNaN(nx)&&!isNaN(ny)&&/^-?[\d.]+$/.test(x)&&/^-?[\d.]+$/.test(y))return Math.abs(nx-ny)<1e-9;
+  return x.toUpperCase()===y.toUpperCase();
+}
+function initTrace(){
+  var cur=0,res=null;
+  function build(){
+    var T=TRACE[cur];
+    res=runSrc(T.src,T.inp);
+    $('#tCode').innerHTML=codeHTML(T.src,-1,null);
+    $('#tInput').textContent=T.inp.length?('Input values, in this order:  '+T.inp.join(',  ')):'This one takes no input.';
+    var cols=res.order,h='<table class="tt"><thead><tr><th>Line</th>'+
+      cols.map(function(c){return '<th>'+esc(c)+'</th>';}).join('')+'<th>OUTPUT</th></tr></thead><tbody>';
+    res.trace.forEach(function(row,ri){
+      h+='<tr><td class="mono" style="color:var(--ink3)">'+(row.ln+1)+'</td>';
+      cols.forEach(function(c){
+        if(row.changed.indexOf(c)>=0)
+          h+='<td><input data-r="'+ri+'" data-c="'+esc(c)+'" inputmode="text" aria-label="'+esc(c)+' at step '+(ri+1)+'"></td>';
+        else if(c in row.vars)
+          h+='<td style="color:var(--ink3)">'+esc(fmt(row.vars[c]))+'</td>';
+        else h+='<td></td>';
+      });
+      if(row.out!==null)h+='<td><input data-r="'+ri+'" data-c="__out" style="width:6.4em" aria-label="output at step '+(ri+1)+'"></td>';
+      else h+='<td style="color:var(--line)">·</td>';
+      h+='</tr>';
+    });
+    h+='</tbody></table>';
+    $('#tTable').innerHTML=h;
+    $('#tFb').className='feedback';
+  }
+  function want(r,c){
+    var row=res.trace[r];
+    return c==='__out'?row.out:fmt(row.vars[c]);
+  }
+  $('#tCheck').addEventListener('click',function(){
+    var ins=$$('#tTable input'),right=0,wrong=0,blank=0,first=null;
+    ins.forEach(function(el){
+      el.parentNode.className='';
+      var v=el.value.trim();
+      if(v===''){blank++;if(!first)first=el;return;}
+      if(sameVal(v,want(parseInt(el.dataset.r,10),el.dataset.c))){right++;el.parentNode.className='ok';}
+      else{wrong++;el.parentNode.className='no';if(!first)first=el;}
+    });
+    if(blank&&!wrong){say($('#tFb'),'<b>'+right+' right so far, '+blank+' still empty.</b> Carry on — the ones you have filled are all correct.',false);return;}
+    if(!wrong&&!blank){
+      say($('#tFb'),'<b>Perfect trace — all '+right+' cells.</b> You just did by hand exactly what the processor does millions of times a second, and you did not guess once.',true);
+      markTabDone($('#tSel'),cur);return;}
+    var el=first,msg='';
+    if(el&&el.parentNode.className==='no'){
+      var r=parseInt(el.dataset.r,10),row=res.trace[r];
+      msg=' The first wrong one is on row '+(r+1)+', which is line '+(row.ln+1)+' of the algorithm: <span class="mono">'+
+        esc((res.prog.lines[row.ln]||'').trim())+'</span>. Work out that one line with the values that were in the boxes the row before.';
+    }
+    say($('#tFb'),'<b>'+right+' right, '+wrong+' wrong'+(blank?', '+blank+' empty':'')+'.</b>'+msg,false);
+    if(el&&el.focus)el.focus();
+  });
+  $('#tHint').addEventListener('click',function(){
+    var ins=$$('#tTable input'),i;
+    for(i=0;i<ins.length;i++){
+      if(ins[i].value.trim()==='')
+        {ins[i].value=want(parseInt(ins[i].dataset.r,10),ins[i].dataset.c);ins[i].parentNode.className='ok';
+         say($('#tFb'),'<b>Filled one in.</b> Look at which line of the algorithm that row points to, and do the next one the same way.',true);return;}
+    }
+    say($('#tFb'),'Nothing left blank — press Check my table.',true);
+  });
+  $('#tClear').addEventListener('click',function(){build();});
+  tabs($('#tSel'),TRACE.map(function(t){return t.n;}),function(i){cur=i;build();});
+}
+
+/* ==================================================================
+   BUG HUNT + TEST DATA + REQUIREMENTS
+   ================================================================== */
+var BUGS=[
+ {n:'1 · The pass mark',
+  story:'A teacher reports that one student who scored exactly 50 was marked FAIL, and 50 is a pass. Everything else looks fine.',
+  src:'START\nDECLARE mark\nREAD mark\nIF mark > 50 THEN\n   WRITE "PASS"\nELSE\n   WRITE "FAIL"\nENDIF\nSTOP',
+  tests:[{in:[80],want:['PASS']},{in:[20],want:['FAIL']},{in:[50],want:['PASS']},{in:[49],want:['FAIL']},{in:[51],want:['PASS']}],
+  hint:'Three of the five tests already pass. Look at the one that does not, and read the condition out loud with that exact number in it.',
+  got:'<b>Off by one at the boundary.</b> <span class="mono">&gt;</span> means strictly more than, so 50 fell through to the ELSE. <span class="mono">&gt;=</span> is what "50 or more" actually means. This single character is the most common bug in the whole syllabus — and it is why boundary data exists as a test category.'},
+ {n:'2 · The vanishing total',
+  story:'Five marks go in and the total that comes out is always just the last one. The loop definitely runs five times.',
+  src:'START\nDECLARE i, mark, total\nFOR i <- 1 TO 5\n   total <- 0\n   READ mark\n   total <- total + mark\nENDFOR\nWRITE "Total:", total\nSTOP',
+  tests:[{in:[10,20,30,40,50],want:['150']},{in:[1,1,1,1,1],want:['5']},{in:[0,0,0,0,7],want:['7']}],
+  hint:'Which lines should happen once, and which should happen five times? One of them is in the wrong place.',
+  got:'<b>The accumulator was being reset every pass.</b> <span class="mono">total &lt;- 0</span> belongs <em>before</em> the loop, not inside it. Inside, it wiped out four marks’ worth of work every time round. Set up before, repeat in the middle, report after — the same shape you sorted in the refinement builder.'},
+ {n:'3 · The one that never stops',
+  story:'This one is supposed to add numbers until somebody types -1. Instead the page freezes. Run it and see what the machine says.',
+  src:'START\nDECLARE n, total\ntotal <- 0\nREAD n\nWHILE n <> -1 DO\n   total <- total + n\nENDWHILE\nWRITE "Total:", total\nSTOP',
+  tests:[{in:[5,10,15,-1],want:['30']},{in:[-1],want:['0']},{in:[100,-1],want:['100']}],
+  hint:'A WHILE loop tests the same variable every pass. If nothing inside the loop ever changes that variable, how could the answer ever change?',
+  got:'<b>Nothing inside the loop changed the condition.</b> A second <span class="mono">READ n</span> at the bottom of the loop is what makes a sentinel loop work — one READ before to get the first value, one inside to get every value after. Miss the inside one and you have written a program that will outlive you.'},
+ {n:'4 · The swap that is not',
+  story:'This should swap the two numbers over. Both come out the same.',
+  src:'START\nDECLARE a, b\nREAD a\nREAD b\na <- b\nb <- a\nWRITE a, b\nSTOP',
+  tests:[{in:[3,9],want:['9','3']},{in:[1,2],want:['2','1']},{in:[7,7],want:['7','7']}],
+  hint:'Trace it by hand with a = 3 and b = 9. Write down what a is after each line. The value you need on the last line is gone by the time you get there.',
+  got:'<b>The first assignment destroyed the thing the second one needed.</b> The moment <span class="mono">a &lt;- b</span> runs, the old value of a is gone for ever. You need a third variable to hold it: <span class="mono">temp &lt;- a</span>, then <span class="mono">a &lt;- b</span>, then <span class="mono">b &lt;- temp</span>. Three lines, not two — and it is on the exam most years.'},
+ {n:'5 · The biggest of five',
+  story:'It finds the largest of five numbers. The accounts department say it works perfectly, except on the day every figure was a loss.',
+  src:'START\nDECLARE i, n, biggest\nbiggest <- 0\nFOR i <- 1 TO 5\n   READ n\n   IF n > biggest THEN\n      biggest <- n\n   ENDIF\nENDFOR\nWRITE "Biggest:", biggest\nSTOP',
+  tests:[{in:[3,19,7,11,2],want:['19']},{in:[100,2,3,4,5],want:['100']},{in:[-8,-3,-91,-40,-12],want:['-3']},{in:[-1,-1,-1,-1,-1],want:['-1']}],
+  hint:'What is the starting value of biggest, and can any of the five numbers ever beat it in the failing test?',
+  got:'<b>The starting value was an assumption.</b> <span class="mono">biggest &lt;- 0</span> quietly assumes no number will ever be negative. The honest fix is to read the first number and make <em>that</em> the starting biggest, then loop over the remaining four. This bug ships in real software constantly, because it passes every test anyone thinks to write.'}
+];
+function initBugs(){
+  var cur=0;
+  function render(){
+    var b=BUGS[cur];
+    $('#bStory').textContent=b.story;
+    $('#bCode').value=b.src;
+    $('#bResults').innerHTML='<span style="font-size:.86rem;color:var(--ink3)">Press <b>Test my fix</b>. Your version is run once for each set of inputs.</span>';
+    $('#bFb').className='feedback';
+  }
+  $('#bRun').addEventListener('click',function(){
+    var b=BUGS[cur],src=$('#bCode').value,pass=0,rows='';
+    b.tests.forEach(function(t){
+      var r=runSrc(src,t.in.map(String)),good,detail;
+      if(!r.ok){good=false;detail='<span style="color:#8E2A17">'+esc(r.err)+'</span>';}
+      else{good=checkWanted(r.out,t.want);detail=esc(r.out.join(' · ')||'(printed nothing)');}
+      if(good)pass++;
+      rows+='<div style="border:1px solid var(--line);border-left:4px solid '+(good?'var(--mint)':'var(--red)')+
+        ';border-radius:8px;padding:8px 11px;margin-bottom:7px;font-size:.83rem">'+
+        '<span class="mono" style="color:var(--ink3)">in: '+esc(t.in.join(', '))+'</span><br><span class="mono">'+
+        (good?'✓ ':'✕ ')+detail+'</span>'+
+        (good?'':'<br><span class="mono" style="color:var(--ink3);font-size:.76rem">wanted: '+esc(t.want.join(', '))+'</span>')+'</div>';
+    });
+    $('#bResults').innerHTML=rows;
+    if(pass===b.tests.length){
+      say($('#bFb'),'<b>Fixed — all '+pass+' tests pass.</b><br>'+b.got,true);
+      markTabDone($('#bSel'),cur);
+    }else say($('#bFb'),'<b>'+pass+' of '+b.tests.length+' passing.</b> Take the first failing input and trace it by hand. One line is lying to you.',false);
+  });
+  $('#bRestore').addEventListener('click',render);
+  $('#bHint').addEventListener('click',function(){say($('#bFb'),'<b>Hint:</b> '+BUGS[cur].hint,true);});
+  tabs($('#bSel'),BUGS.map(function(b){return b.n;}),function(i){cur=i;render();});
+}
+
+var TD=[
+ {t:'45',b:'n',why:'an ordinary mark in the middle of the range — exactly what the system expects every day.'},
+ {t:'72',b:'n',why:'ordinary valid data, nowhere near a limit.'},
+ {t:'88',b:'n',why:'ordinary valid data.'},
+ {t:'63',b:'n',why:'ordinary valid data. Normal tests prove the thing works at all — they prove nothing else.'},
+ {t:'0',b:'e',why:'the lowest value that is still allowed. Valid, but right on the edge — that is extreme data.'},
+ {t:'100',b:'e',why:'the highest allowed value. Off-by-one bugs live here.'},
+ {t:'1',b:'e',why:'one inside the lower limit. Testing just inside the edge catches &lt; versus &lt;= mistakes.'},
+ {t:'99',b:'e',why:'one inside the upper limit — the other half of the same check.'},
+ {t:'-5',b:'a',why:'a mark cannot be negative, so this is invalid and the system should reject it, not store it.'},
+ {t:'101',b:'a',why:'outside the allowed range, so it is erroneous. Just past the limit is where it belongs.'},
+ {t:'the word "fifty"',b:'a',why:'the right idea in the wrong data type. The system must cope without crashing.'},
+ {t:'nothing typed at all',b:'a',why:'an empty entry is invalid data too, and it is the one people forget to test.'}
+];
+function initTD(){
+  var s=new Sorter({pool:$('#dPool'),bins:$('#dBins'),fb:$('#dFb'),
+    binDefs:[{id:'n',title:'Normal',hint:'Valid, ordinary, mid-range'},
+             {id:'e',title:'Extreme / boundary',hint:'Valid, but right at the limit'},
+             {id:'a',title:'Abnormal / erroneous',hint:'Invalid — must be rejected'}],
+    items:TD,
+    win:'Some syllabuses say "boundary", some say "extreme", and some say "erroneous" instead of "abnormal". They mean the same three things. A test plan with no extreme data is where most lost marks — and most real bugs — come from.'});
+  $('#dCheck').addEventListener('click',function(){s.check();});
+  $('#dReset').addEventListener('click',function(){s.reset();});
+}
+
+var REQS=[
+ {t:'Calculate each student’s GPA',b:'f',why:'a thing the system does. Functional.'},
+ {t:'Search for a student by ID',b:'f',why:'an action the system performs for a user. Functional.'},
+ {t:'Print a receipt after every sale',b:'f',why:'an output the system produces. Functional.'},
+ {t:'Email the customer a confirmation',b:'f',why:'the system does something. Functional.'},
+ {t:'Let an admin delete a record',b:'f',why:'a capability the system offers. Functional.'},
+ {t:'Show the next three bus times',b:'f',why:'information the system displays. Functional.'},
+ {t:'Work out the change due',b:'f',why:'a calculation the system carries out. Functional.'},
+ {t:'Load any page in under 2 seconds',b:'n',why:'performance — how well, not what. Non-functional.'},
+ {t:'Be available 99.9% of the time',b:'n',why:'reliability and availability. Non-functional.'},
+ {t:'Store passwords encrypted',b:'n',why:'a security quality the whole system must have, not a feature a user asks for. Non-functional.'},
+ {t:'Run on Chrome, Safari and Firefox',b:'n',why:'portability — a constraint on how it must work. Non-functional.'},
+ {t:'Be usable with no training',b:'n',why:'usability. Non-functional, and the hardest to measure.'},
+ {t:'Cope with 500 users at once',b:'n',why:'capacity and performance under load. Non-functional.'},
+ {t:'Meet accessibility guidelines',b:'n',why:'a quality the whole system must meet. Non-functional.'}
+];
+function initReqs(){
+  var s=new Sorter({pool:$('#qPool'),bins:$('#qBins'),fb:$('#qFb'),
+    binDefs:[{id:'f',title:'Functional',hint:'WHAT the system does'},
+             {id:'n',title:'Non-functional',hint:'HOW WELL it does it'}],
+    items:REQS,
+    win:'Fourteen out of fourteen. Notice that every functional one starts with a verb the user would recognise, and every non-functional one is really an adjective in disguise — fast, reliable, secure, portable, usable.'});
+  $('#qCheck').addEventListener('click',function(){s.check();});
+  $('#qReset').addEventListener('click',function(){s.reset();});
+}
+
+/* ==================================================================
+   UNIT TEST — 40 questions
+   ================================================================== */
+var QS=[
+/* ---------- A: the process and design (8) ---------- */
+{p:'A',q:'Which of these is the FIRST step in the problem-solving process?',
+ o:['Define the problem','Develop the algorithm','Test and validate','Propose possible solutions'],a:0,
+ e:'Everything else depends on it. You cannot analyse, design or test a problem nobody has written down yet.'},
+{p:'A',q:'A team spends eight months building a stock system. On delivery the client says "but we needed it to handle returns." Which step went wrong?',
+ o:['Testing','Defining the problem','Coding','Evaluating solutions'],a:1,
+ e:'The code probably works perfectly. It solves a problem that was never properly agreed, which is why defining the problem is step one and not an afterthought.'},
+{p:'A',q:'Breaking a large problem into sub-problems, then breaking each of those down further until every piece is simple enough to code, is called:',
+ o:['Bottom-up design','Top-down design with step-wise refinement','Debugging','Prototyping'],a:1,
+ e:'Top-down design is the overall approach; step-wise refinement is the act of taking each level and expanding it into the next. Bottom-up goes the other way — building small reusable pieces first and assembling them.'},
+{p:'A',q:'A module is said to have HIGH COHESION when:',
+ o:['It depends on many other modules','It does one clearly defined job','It is written in as few lines as possible','It can be called from anywhere in the program'],a:1,
+ e:'High cohesion is good. A module called CalculateTax that also prints receipts and emails customers has LOW cohesion and will be painful to change.'},
+{p:'A',q:'Which combination is the goal of good modular design?',
+ o:['High cohesion and high coupling','Low cohesion and low coupling','High cohesion and low coupling','Low cohesion and high coupling'],a:2,
+ e:'High cohesion, low coupling. Each module does one job (cohesion) and leans on the others as little as possible (coupling), so changing one thing does not break three others.'},
+{p:'A',q:'In the IPO model used during analysis, the three letters stand for:',
+ o:['Input, Program, Output','Input, Processing, Output','Identify, Plan, Organise','Internal, Processing, Operational'],a:1,
+ e:'Input, Processing, Output. If you cannot list all three for a problem, you have not finished analysing it.'},
+{p:'A',q:'At which step do you compare two or three different possible solutions against cost, time and constraints before committing?',
+ o:['Define the problem','Analyse the problem','Evaluate and select a solution','Develop the algorithm'],a:2,
+ e:'Proposing solutions generates the options; evaluating them picks one and gives a reason. "It is the newest technology" is not a reason.'},
+{p:'A',q:'A hierarchy chart (structure chart) shows:',
+ o:['The order in which statements execute','How modules relate to one another and which calls which','The values of variables at each step','The shapes used in a flowchart'],a:1,
+ e:'It shows the structure — what is made of what. It deliberately does NOT show order of execution or any loops; that is the flowchart’s job.'},
+
+/* ---------- B: algorithms and pseudocode (8) ---------- */
+{p:'B',q:'Which of these is NOT a required property of an algorithm?',
+ o:['It must be precise','It must be unambiguous','It must be infinite','It must be in a logical sequence'],a:2,
+ e:'The opposite — an algorithm must be FINITE. It has to stop. Something that never stops is a hang, not an algorithm.'},
+{p:'B',q:'A written algorithm should contain four sections. Which list is correct?',
+ o:['Header, variable declaration, program body, terminator','Title, inputs, outputs, diagram','Comments, code, testing, results','Problem, solution, evaluation, conclusion'],a:0,
+ e:'Header (its name), declarations (what it uses), body (the steps), terminator (STOP or END). Markers look for all four, and the terminator is the cheapest mark on the paper to lose.'},
+{p:'B',q:'"Add a few spoons of sugar." Which property of an algorithm does this instruction break?',
+ o:['Finiteness','Unambiguity','Logical sequence','Effectiveness of output'],a:1,
+ e:'"A few" could be two or five. An instruction must have exactly one possible interpretation, which means a number, not a judgement.'},
+{p:'B',q:'A loop whose condition can never become false breaks which property?',
+ o:['Precision','Finiteness','Unambiguity','Logical sequence'],a:1,
+ e:'An algorithm must terminate. This is the one property you can break by accident on a line that looks perfectly reasonable.'},
+{p:'B',q:'After <span class="mono">x ← 17 MOD 5</span>, what is the value of x?',
+ o:['3','2','3.4','85'],a:1,
+ e:'MOD gives the REMAINDER. 17 ÷ 5 is 3 remainder 2, so MOD gives 2 and DIV would give 3.'},
+{p:'B',q:'After <span class="mono">y ← 17 DIV 5</span>, what is the value of y?',
+ o:['2','3.4','3','4'],a:2,
+ e:'DIV gives the whole-number part of the division and throws the remainder away. 3, not 3.4 and not rounded to 4.'},
+{p:'B',q:'What does <span class="mono">DECLARE total : INTEGER</span> actually do?',
+ o:['Sets total to 0','Reserves a named storage location that can hold a whole number','Reads a whole number from the user','Prints the value of total'],a:1,
+ e:'Declaring reserves the box and labels it. It does not put anything in the box — which is exactly why <span class="mono">total ← 0</span> is a separate line you must not forget.'},
+{p:'B',code:'a ← 4\nb ← 6\na ← a + b\nb ← a - b\nWRITE a, b',
+ q:'What does this print?',o:['4 6','10 4','10 6','6 4'],a:1,
+ e:'Line 3 makes a = 10. Line 4 then uses the NEW a: b = 10 - 6 = 4. The old value of a is already gone, which is the same trap as the broken swap in the bug hunt.'},
+
+/* ---------- C: flowcharts (6) ---------- */
+{p:'C',q:'Which flowchart symbol is used for <span class="mono">READ mark</span>?',
+ o:['A rectangle','A parallelogram (slanted box)','A diamond','A rounded rectangle'],a:1,
+ e:'Anything crossing the boundary of the program — in or out — gets the slanted input/output box. READ, WRITE, PRINT and DISPLAY all use it.'},
+{p:'C',q:'A diamond on a flowchart represents:',
+ o:['An important step','A decision with exactly two exits','The start of the program','A calculation'],a:1,
+ e:'A question with two answers, and both exits must be labelled YES and NO. One arrow out of a diamond means it should have been a rectangle.'},
+{p:'C',q:'Which symbol marks the beginning and the end of a flowchart?',
+ o:['The parallelogram','The rounded rectangle (terminator)','The rectangle','The diamond'],a:1,
+ e:'The terminator, and nothing else ever uses it. Every flowchart has exactly one START and at least one STOP.'},
+{p:'C',q:'A rectangle drawn with an extra vertical line down each side means:',
+ o:['A very important process','A subprocess — a separate module defined elsewhere','A loop','A comment'],a:1,
+ e:'The striped rectangle says "the detail lives in another chart". It is how a top-down design appears on a flowchart.'},
+{p:'C',q:'A student draws a diamond with only one arrow leaving it. What is wrong?',
+ o:['Nothing — that is allowed','A decision must have two exits, so this should be a process box','Diamonds must be at the top of the chart','It needs a terminator inside it'],a:1,
+ e:'Count the exits. Two exits means a diamond; one exit means a rectangle. That single rule catches most flowchart errors before a marker does.'},
+{p:'C',q:'Why must every flow line carry an arrowhead?',
+ o:['To make the chart look finished','To show the direction in which control flows','Because the syllabus says diagrams must be neat','To separate the modules'],a:1,
+ e:'A bare line tells the reader two boxes are connected but not which happens first — and a flowchart exists precisely to show order.'},
+
+/* ---------- D: selection and iteration (8) ---------- */
+{p:'D',q:'You must process exactly 30 student records. Which loop is the natural choice?',
+ o:['WHILE','REPEAT UNTIL','FOR','None — use selection'],a:2,
+ e:'You know the count before you start, so a FOR loop sets up, tests and increments the counter for you — three places you can no longer make a mistake.'},
+{p:'D',q:'Which loop structure always executes its body at least once?',
+ o:['FOR','WHILE','REPEAT UNTIL','All three'],a:2,
+ e:'REPEAT UNTIL tests at the BOTTOM, so the body has already happened by the time the condition is asked. Perfect for "ask for a password", dangerous for "charge the customer".'},
+{p:'D',q:'Which loop may execute its body zero times?',
+ o:['REPEAT UNTIL','WHILE','Neither','Both equally'],a:1,
+ e:'A WHILE tests at the top. If the condition is false the first time it is asked, the body is skipped entirely — which is exactly what you want for "process every item in an empty queue".'},
+{p:'D',code:'count ← 5\nWHILE count < 5 DO\n   WRITE "hello"\n   count ← count + 1\nENDWHILE\nWRITE "done"',
+ q:'What does this print?',o:['hello five times, then done','hello once, then done','just done','nothing — it loops forever'],a:2,
+ e:'5 &lt; 5 is false, so the body never runs at all. Change WHILE to REPEAT UNTIL and "hello" would appear once — that difference is a favourite exam question.'},
+{p:'D',q:'Which condition is TRUE only when n is between 10 and 20 inclusive?',
+ o:['10 &lt;= n &lt;= 20','n &gt;= 10 AND n &lt;= 20','n &gt;= 10 OR n &lt;= 20','n &gt; 10 AND n &lt; 20'],a:1,
+ e:'You must name the variable twice and join with AND. The chained form does not work, OR is true for every number alive, and the last option quietly excludes 10 and 20.'},
+{p:'D',q:'Which condition is TRUE only when n is NOT between 10 and 20 inclusive?',
+ o:['n &lt; 10 AND n &gt; 20','n &lt; 10 OR n &gt; 20','NOT (n &gt;= 10 OR n &lt;= 20)','n &lt;= 10 OR n &gt;= 20'],a:1,
+ e:'Flipping a condition flips both comparisons AND swaps the AND for an OR. Keep the AND and you get a condition no number can ever satisfy.'},
+{p:'D',code:'total ← 0\nFOR i ← 1 TO 5\n   total ← total + i\nENDFOR\nWRITE total',
+ q:'What is printed?',o:['5','10','15','20'],a:2,
+ e:'1+2+3+4+5 = 15. Note the loop runs for i = 1,2,3,4,5 — five times, including both ends.'},
+{p:'D',q:'How many times does the body of <span class="mono">FOR i ← 10 TO 1 STEP -2</span> run?',
+ o:['4','5','6','10'],a:1,
+ e:'i takes the values 10, 8, 6, 4, 2 — five passes. It then becomes 0, which is below the limit of 1, so the loop ends.'},
+
+/* ---------- E: trace tables and testing (6) ---------- */
+{p:'E',q:'What is the purpose of a trace table?',
+ o:['To list the inputs a program needs','To record the value of every variable after each step, so you can desk-check the logic','To show which modules call which','To plan the user interface'],a:1,
+ e:'It is desk-checking: being the computer, by hand, slowly, before anything runs. It is the only way to find a logic error that does not crash.'},
+{p:'E',code:'x ← 10\nWHILE x > 0 DO\n   x ← x - 3\nENDWHILE\nWRITE x',
+ q:'What is printed?',o:['0','1','-2','-3'],a:2,
+ e:'x goes 10, 7, 4, 1, then -2. At 1 the condition 1 &gt; 0 is still true, so it subtracts once more and overshoots. Loops almost always end one step past where you expect.'},
+{p:'E',q:'A field accepts a mark from 1 to 50. Which value is EXTREME (boundary) data?',
+ o:['25','50','51','"fifty"'],a:1,
+ e:'50 is valid and sits exactly on the limit — that is what extreme data means. 51 is just outside, so it is abnormal, and 25 is ordinary normal data.'},
+{p:'E',q:'For that same 1-to-50 field, which value is ABNORMAL (erroneous) data?',
+ o:['1','50','30','the word "twenty"'],a:3,
+ e:'Abnormal data is data the system must REJECT without crashing — wrong type, out of range, or nothing entered at all. The other three are all valid marks.'},
+{p:'E',q:'A program handles every ordinary input correctly but crashes when a user presses Enter without typing anything. Which test category was missed?',
+ o:['Normal data','Extreme data','Abnormal data','No category — this is a hardware fault'],a:2,
+ e:'An empty entry is invalid data, so it belongs in abnormal testing — and it is the single most forgotten test case in real software.'},
+{p:'E',code:'n ← 1234\ns ← 0\nWHILE n > 0 DO\n   s ← s + (n MOD 10)\n   n ← n DIV 10\nENDWHILE\nWRITE s',
+ q:'What is printed?',o:['10','1234','4','0'],a:0,
+ e:'MOD 10 peels off the last digit and DIV 10 removes it: 4+3+2+1 = 10. This MOD/DIV pair is the standard way to take a number apart digit by digit.'},
+
+/* ---------- F: requirements (4) ---------- */
+{p:'F',q:'"Any page of the system must load in under three seconds." This is:',
+ o:['A functional requirement','A non-functional requirement','An algorithm','A test case'],a:1,
+ e:'It says how WELL the system must work, not what it does. Performance, reliability, security, usability and portability are all non-functional.'},
+{p:'F',q:'"A teacher must be able to enter marks for a class." This is:',
+ o:['A functional requirement','A non-functional requirement','A constraint','A boundary test'],a:0,
+ e:'It names a thing the system does for a user. If you can put a verb in front of it that the user would recognise, it is functional.'},
+{p:'F',q:'Non-functional requirements describe:',
+ o:['The features the system provides','The quality attributes — how well the system performs its functions','The hardware the developer owns','The bugs still to be fixed'],a:1,
+ e:'Speed, availability, security, usability, portability, capacity. They are often the requirements that decide whether people actually use the thing.'},
+{p:'F',q:'Which ONE of these is a FUNCTIONAL requirement?',
+ o:['The system must be available 24 hours a day','All stored data must be encrypted','The system must generate a monthly sales report','The system must run on a tablet'],a:2,
+ e:'Generating the report is something the system DOES. Availability, encryption and which device it runs on are all qualities of how it does its work.'}
+];
+
+var PART={A:{n:'The process & design',s:'#process'},B:{n:'Algorithms & pseudocode',s:'#algorithms'},
+          C:{n:'Flowcharts',s:'#flow'},D:{n:'Selection & iteration',s:'#control'},
+          E:{n:'Trace tables & testing',s:'#trace'},F:{n:'Requirements',s:'#reqs'}};
+function initTest(){
+  var pool=[],at=0,pick=[],score=0;
+  function begin(idxs){
+    pool=idxs.slice();at=0;pick=pool.map(function(){return -1;});score=0;
+    $('#testIntro').classList.add('hide');$('#testDone').classList.add('hide');
+    $('#testRun').classList.remove('hide');$('#reviewBox').innerHTML='';
+    draw();
+  }
+  function draw(){
+    var q=QS[pool[at]];
+    $('#testPos').textContent='Question '+(at+1)+' of '+pool.length;
+    $('#testScore').textContent=score+' correct';
+    $('#testMeter').style.width=(at/pool.length*100)+'%';
+    $('#qcard').innerHTML='<div class="qpart">PART '+q.p+' · '+esc(PART[q.p].n).toUpperCase()+'</div>'+
+      '<div class="qtext">'+q.q+'</div>'+
+      (q.code?'<div class="code" style="margin-bottom:14px">'+codeHTML(q.code,-1,null)+'</div>':'')+
+      '<div class="opts">'+q.o.map(function(o,k){
+        return '<button class="opt" type="button" data-k="'+k+'"><span class="k">'+'ABCD'[k]+'</span><span>'+o+'</span></button>';
+      }).join('')+'</div><div id="expl"></div>';
+    $$('.opt',$('#qcard')).forEach(function(b){
+      b.addEventListener('click',function(){answer(parseInt(b.getAttribute('data-k'),10));});
+    });
+  }
+  function answer(k){
+    var q=QS[pool[at]],right=(k===q.a);
+    pick[at]=k;if(right)score++;
+    $$('.opt',$('#qcard')).forEach(function(b,ix){
+      b.disabled=true;
+      if(ix===q.a)b.classList.add('right');
+      else if(ix===k)b.classList.add('wrong');
+    });
+    $('#testScore').textContent=score+' correct';
+    $('#expl').innerHTML='<div class="expl"><b>'+(right?'Correct.':'Not this time — the answer is '+'ABCD'[q.a]+'.')+'</b> '+q.e+'</div>'+
+      '<div class="btnrow"><button class="btn accent" type="button" id="nx">'+(at===pool.length-1?'See my results':'Next question')+'</button></div>';
+    $('#nx').addEventListener('click',function(){
+      if(at===pool.length-1)finish();else{at++;draw();}
+    });
+    $('#nx').focus();
+  }
+  function finish(){
+    $('#testRun').classList.add('hide');$('#testDone').classList.remove('hide');
+    var pct=Math.round(score/pool.length*100);
+    $('#doneScore').textContent=score+' / '+pool.length;
+    var g=pct>=90?'Grade I territory':pct>=80?'Grade II territory':pct>=70?'Grade III territory':pct>=60?'Grade IV territory':pct>=50?'Grade V territory':'Not there yet';
+    $('#doneGrade').textContent=pct+'% · '+g;
+    $('#doneMsg').textContent=
+      pct>=90?'That is exam-ready. Go and help somebody else in the class — explaining it is how you keep it.':
+      pct>=70?'Solid. Look at the weakest part below, play with that section again, then retry only the ones you missed.':
+      pct>=50?'The foundation is there. Pick the lowest bar below and go back to that section — it is interactive for a reason, so use it rather than re-reading it.':
+      'Do not retake this yet. Go back to the machine at the top and run a few programs line by line with the Step button. Everything on this page is easier once you have watched a program actually execute.';
+    var tot={},got={};
+    pool.forEach(function(qi,ix){
+      var p=QS[qi].p;tot[p]=(tot[p]||0)+1;if(pick[ix]===QS[qi].a)got[p]=(got[p]||0)+1;
+    });
+    $('#doneBreak').innerHTML=Object.keys(PART).filter(function(p){return tot[p];}).map(function(p){
+      var pc=Math.round((got[p]||0)/tot[p]*100);
+      return '<div class="brow"><span><b>'+esc(PART[p].n)+'</b></span>'+
+        '<span class="bar"><i style="width:'+pc+'%;background:'+(pc>=70?'var(--mint)':pc>=50?'var(--amber)':'var(--red)')+'"></i></span>'+
+        '<span class="mono" style="font-size:.84rem">'+(got[p]||0)+'/'+tot[p]+'</span>'+
+        (pc<70?' <a href="'+PART[p].s+'" style="font-size:.8rem;color:var(--hot)">revise →</a>':'')+'</div>';
+    }).join('');
+    var missed=pool.filter(function(qi,ix){return pick[ix]!==QS[qi].a;});
+    $('#retryWrong').disabled=!missed.length;
+    $('#retryWrong').textContent=missed.length?('Retry only what I missed ('+missed.length+')'):'Nothing missed';
+    $('#retryWrong').onclick=function(){if(missed.length)begin(missed);};
+    $('#reviewAll').onclick=function(){
+      var box=$('#reviewBox');
+      if(box.innerHTML){box.innerHTML='';return;}
+      box.innerHTML='<h3 style="margin:22px 0 12px">Every question, with the answer</h3>'+
+        pool.map(function(qi,ix){
+          var q=QS[qi],ok=pick[ix]===q.a;
+          return '<div class="rev" style="border-left:4px solid '+(ok?'var(--mint)':'var(--red)')+'">'+
+            '<div class="qpart">PART '+q.p+' · Q'+(ix+1)+'</div>'+
+            '<div class="qq">'+q.q+'</div>'+
+            (q.code?'<div class="code" style="margin:0 0 9px">'+codeHTML(q.code,-1,null)+'</div>':'')+
+            '<div class="ln2">'+(ok?'':'<span style="color:#8E2A17">You chose: '+(pick[ix]>=0?q.o[pick[ix]]:'nothing')+'</span><br>')+
+            '<b style="color:#0B5F50">Answer: '+q.o[q.a]+'</b><br>'+q.e+'</div></div>';
+        }).join('');
+      box.scrollIntoView&&box.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+  }
+  $('#testStart').addEventListener('click',function(){begin(QS.map(function(_,i){return i;}));});
+  $('#retryAll').addEventListener('click',function(){begin(QS.map(function(_,i){return i;}));});
+  $('#testQuit').addEventListener('click',function(){
+    if(at===0&&pick[0]===-1){$('#testRun').classList.add('hide');$('#testIntro').classList.remove('hide');return;}
+    pool=pool.slice(0,at+ (pick[at]>=0?1:0));pick=pick.slice(0,pool.length);
+    if(!pool.length){$('#testRun').classList.add('hide');$('#testIntro').classList.remove('hide');return;}
+    finish();
+  });
+}
+
+/* ==================================================================
+   BOOT
+   ================================================================== */
+function initNav(){
+  if(!('IntersectionObserver' in window))return;
+  var links={},ids=[];
+  $$('nav.top a[href^="#"]').forEach(function(a){
+    var id=a.getAttribute('href').slice(1);links[id]=a;ids.push(id);});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var a=links[e.target.id];if(!a)return;
+      if(e.isIntersecting){
+        $$('nav.top a').forEach(function(x){if(!x.classList.contains('home'))x.style.color='';x.style.background='';});
+        a.style.color='var(--hot)';a.style.background='var(--board)';
+      }});
+  },{rootMargin:'-62px 0px -72% 0px'});
+  ids.forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+}
+function boot(){
+  try{Machine();}catch(e){}
+  [initProcess,initRefine,initAmb,initNotations,initWrite6,initSyms,initFCBuilder,
+   initLoops,initConds,initTrace,initBugs,initTD,initReqs,initTest,initNav].forEach(function(f){
+    try{f();}catch(e){if(window.console&&console.error)console.error(f.name,e);}
+  });
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+</body>
+</html>
